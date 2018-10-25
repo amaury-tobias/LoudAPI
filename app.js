@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/login', loginRouter);
+app.use('/', loginRouter);
 
 app.use(function(req, res, next) {
   next(createError(404));
