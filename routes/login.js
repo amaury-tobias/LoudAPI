@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/login', function (req, res, next) {
-    res.location('pm.amaurytq.me');
+    res.json({
+        status: 200,
+        message: 'login'
+    })
 });
 
 router.post('/login', function (req, res, next) {
