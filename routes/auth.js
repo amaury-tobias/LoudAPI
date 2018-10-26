@@ -15,7 +15,7 @@ router.get('/login', function (req, res) {
 router.post('/signup', passport.authenticate('signup', { session: false }), function (req, res, next) {
     const body = { _id: req.user._id, email: req.user.email };
     const token = jwt.sign({ user: body }, 'GuiaDelLago');
-    res.cookie('jwt', token, { expires: new Date(Date.now() + 900000) });
+    res.cookie('jwt', token, { maxAge: 900000 });
     res.redirect('../api/profile');
 });
 
@@ -33,7 +33,7 @@ router.post('/login', function (req, res, next) {
             }
             const body = { _id: user._id, email: user.email };
             const token = jwt.sign({ user: body }, 'GuiaDelLago');
-            res.cookie('jwt', token, { expires: new Date(Date.now() + 900000) });
+            res.cookie('jwt', token, { maxAge: 900000 });
             return res.redirect('../api/profile');
         });
     })(req, res);
