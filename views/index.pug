@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Bienvenido a #{title}
+  p Bienvenido
+    h1 Loud API
+  a(href="/api/profile") Profile (requiere sesion)
+  br
+  a(href="/auth/signup") Signup
+  br
+  a(href="/auth/login") Login

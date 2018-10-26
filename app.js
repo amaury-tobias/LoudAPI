@@ -11,6 +11,7 @@ var passport = require('passport');
 require('./passport');
 
 var indexRouter = require('./routes/index');
+var profileRouter = require('./routes/profile');
 const auth = require('./routes/auth');
 
 var dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/loud';
@@ -31,7 +32,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', auth);
-app.use('/api', passport.authenticate('jwt', { session: false }), indexRouter);
+app.use('/', indexRouter);
+app.use('/api', passport.authenticate('jwt', { session: false }), profileRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
