@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 
 var router = express.Router();
 
+const cookieMaxAge = 1000 * 60 * 60 * 24 * 10;
+
 router.get('/signup', function (req, res) {
     res.render('signup');
 });
@@ -15,7 +17,7 @@ router.get('/login', function (req, res) {
 router.post('/signup', passport.authenticate('signup', { session: false }), function (req, res, next) {
     const body = { _id: req.user._id, email: req.user.email };
     const token = jwt.sign({ user: body }, 'GuiaDelLago');
-    res.cookie('jwt', token, { maxAge: 900000 });
+    res.cookie('jwt', token, { maxAge: cookieMaxAge });
     res.redirect('../api/profile');
 });
 
@@ -33,7 +35,7 @@ router.post('/login', function (req, res, next) {
             }
             const body = { _id: user._id, email: user.email };
             const token = jwt.sign({ user: body }, 'GuiaDelLago');
-            res.cookie('jwt', token, { maxAge: 900000 });
+            res.cookie('jwt', token, { maxAge: cookieMaxAge });
             return res.redirect('../api/profile');
         });
     })(req, res);
