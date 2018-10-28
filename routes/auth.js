@@ -42,9 +42,7 @@ router.post('/login', function (req, res, next) {
                 user: user,
                 err
             });
-        }
-        console.log(user);
-        
+        }        
         req.login(user, { session: false }, (err) => {
             if (err) {
                 res.send(err);
