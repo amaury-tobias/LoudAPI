@@ -4,39 +4,28 @@ var UserModel = require('./models/usermodel');
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
-passport.use('signup', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-}, function (email, password, done) {
-    UserModel.create({ email, password })
-        .then(user => {
-            if (!user) {
-                done(null, false, { message: '500 Error al crear usuario' });
-            }
-            return done(null, user, { message: 'Usuario Registrado' });
-        })
-        .catch(err => done(err));
-}));
-
 passport.use('login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
-}, function (email, password, done) {
-    return UserModel.findOne({ email })
-        .then(user => {
-            if (!user) {
-                return done(null, false, { message: 'Nombre de Usuario Incorrecto' });
-            }
-            user.isValidPassword(password)
-                .then(valid => {
-                    if (!valid) {
-                        done(null, false, { message: 'Contraseña Incorrecta' });
-                    }
-                    done(null, user, { message: 'Login Correcto' });
-                })
-                .catch(err => new Error('500 error bcrypt'));
-        })
-        .catch(err => done(err));
+}, async function (email, password, done) {
+    try {
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            done(null, false, 'Nombre de Usuario Incorrecto');
+        }        
+        user.isValidPassword(password)
+            .then(valid => {
+                
+                if (!valid) {
+                    done(null, false, 'Contraseña Incorrecta');
+                }
+                done(null, user, 'Login Correcto');
+            })
+            .catch(err => new Error('500 error bcrypt'));
+    }
+    catch (err) {
+        return done(err);
+    }
 }))
 
 var cookieExtractor = function (req) {
@@ -50,10 +39,12 @@ var cookieExtractor = function (req) {
 passport.use(new JWTStrategy({
     secretOrKey: 'GuiaDelLago',
     jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor])
-}, function (jwtPayload, done) {
-    return UserModel.findOne({ _id: jwtPayload.user._id })
-        .then(user => {
-            return done(null, jwtPayload.user);
-        })
-        .catch(err => done(err));
+}, async function (jwtPayload, done) {
+    try {
+        const user = await UserModel.findOne({ _id: jwtPayload.user._id });
+        return done(null, user);
+    }
+    catch (err) {
+        return done(err);
+    }
 }))

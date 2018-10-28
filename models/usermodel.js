@@ -10,7 +10,16 @@ var UserSchema = new Schema({
     },
     password: {
         type: String,
+        required: true,
+        select: false
+    },
+    name: {
+        type: String,
         required: true
+    },
+    role: {
+        type: String,
+        default: 'user'
     }
 });
 
@@ -24,6 +33,8 @@ UserSchema.pre('save', async function (next) {
 UserSchema.methods.isValidPassword = async function (password) {
     const user = this;
     const compare = await bcrypt.compare(password, user.password);
+    console.log(compare);
+
     return compare;
 }
 

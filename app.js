@@ -10,9 +10,10 @@ var passport = require('passport');
 
 require('./passport');
 
-var indexRouter = require('./routes/index');
-var profileRouter = require('./routes/profile');
+const indexRouter = require('./routes/index');
+const profileRouter = require('./routes/profile');
 const auth = require('./routes/auth');
+const mailRouter = require('./routes/mail');
 
 var dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/loud';
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', auth);
 app.use('/', indexRouter);
 app.use('/api', passport.authenticate('jwt', { session: false }), profileRouter);
+app.use('/api/mail', passport.authenticate('jwt', { session: false }), mailRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
