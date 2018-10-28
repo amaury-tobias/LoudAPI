@@ -12,7 +12,7 @@ passport.use('login', new LocalStrategy({
         const user = await UserModel.findOne({ email });
         if (!user) {
             done(null, false, 'Nombre de Usuario Incorrecto');
-        }        
+        }
         user.isValidPassword(password)
             .then(valid => {
                 

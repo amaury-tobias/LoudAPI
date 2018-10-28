@@ -1,12 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-var passport = require('passport');
+const passport = require('passport');
 
 require('./passport');
 
@@ -14,6 +13,7 @@ const indexRouter = require('./routes/index');
 const profileRouter = require('./routes/profile');
 const auth = require('./routes/auth');
 const mailRouter = require('./routes/mail');
+const contractRouter = require('./routes/contractRouter');
 
 var dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/loud';
 
@@ -32,9 +32,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/auth', auth);
 app.use('/', indexRouter);
+
+app.use('/auth', auth);
 app.use('/api', passport.authenticate('jwt', { session: false }), profileRouter);
+app.use('/api', passport.authenticate('jwt', { session: false }), contractRouter);
+
 app.use('/api/mail', passport.authenticate('jwt', { session: false }), mailRouter);
 
 app.use(function (req, res, next) {

@@ -35,14 +35,16 @@ router.post('/signup', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
+
     passport.authenticate('login', { session: false }, (err, user, info) => {
+        
         if (err | !user) {
             return res.status(301).json({
                 info,
                 user: user,
                 err
             });
-        }        
+        }
         req.login(user, { session: false }, (err) => {
             if (err) {
                 res.send(err);
