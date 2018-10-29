@@ -3,7 +3,7 @@ extends layout
 block content
   h1 Login
 
-  form(action="/auth/login", method="post")
-    input(type="email", name="email" placeholder="email")
+  form(action="/api/login", method="post")
+    input(type="text", name="email" placeholder="username or email")
     input(type="password", name="password" placeholder="password")
     input(type="submit", value="Submit")

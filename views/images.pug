@@ -13,7 +13,7 @@ html(lang="es")
     title Document
   body
     header
-      img(src="../api/info/picture/banner", alt="LOGO", srcset="")
+      img(src="/api/info/picture/banner", alt="LOGO", srcset="")
       button#showLogin.toggleFormShow(onclick="showForm()") Sesión
       #loginForm.toggleForm
         form.toggleFormContainer(action="", method="post")
@@ -43,7 +43,7 @@ html(lang="es")
             each item, index in data
               .slide1
                 .numbertext #{(index+1)}/#{total}
-                img(src="../api/picture/"+item._id, alt=""+(index+1))
+                img(src="/api/picture/"+item._id, alt=""+(index+1))
             a.prev1(onclick="changeSlides(1, -1)") ❮
             a.next1(onclick="changeSlides(1, 1)") ❯
         script.

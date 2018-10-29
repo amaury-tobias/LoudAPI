@@ -20,7 +20,9 @@ router.post('/signup', function (req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
-    UserModel.create({ name, email, password })
+    const role = req.body.role;
+
+    UserModel.create({ name, email, password, role })
         .then(user => {
             if (!user) {
                 res.status(500).json({ info: 'Error al crear usuario' });
@@ -35,9 +37,7 @@ router.post('/signup', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-
     passport.authenticate('login', { session: false }, (err, user, info) => {
-        
         if (err | !user) {
             return res.status(301).json({
                 info,
@@ -55,6 +55,11 @@ router.post('/login', function (req, res, next) {
             return res.redirect('../api/profile');
         });
     })(req, res);
+});
+
+router.get('/close', function (req, res) {
+    res.clearCookie('jwt');
+    res.redirect('../');
 });
 
 module.exports = router;

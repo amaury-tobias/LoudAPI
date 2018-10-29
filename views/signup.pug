@@ -3,8 +3,12 @@ extends layout
 block content
   h1 SignUP
 
-  form(action="/auth/signup", method="post")
+  form(action="/api/signup", method="post")
     input(type="text", name="name", placeholder="name")
     input(type="email", name="email", placeholder="email")
     input(type="password", name="password", placeholder="password")
+    select(name="role")
+      option(value="admin") Administrador
+      option(value="user") User
+      option(value="img") ImageUploader
     input(type="submit", value="Submit")

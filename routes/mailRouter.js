@@ -8,7 +8,7 @@ const message = require('../mailer/mailMessage')
 router.post('/send', function (req, res, next) {
     const from = '';
     const to = req.body.to;
-    const subject = req.body.to;
+    const subject = req.body.subject;
 
     transporter.sendMail(message('amaury.tobiasqr@gmail.com', to, subject))
         .then(info => {

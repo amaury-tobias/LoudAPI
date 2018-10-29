@@ -14,11 +14,6 @@ router.get('/profile', function (req, res) {
     });
 });
 
-router.get('/close', function (req, res) {
-    res.clearCookie('jwt');
-    res.redirect('../');
-});
-
 router.post('/picture', upload.single('img'), function (req, res) {
     const zone = req.body.zone
     const page = req.body.page

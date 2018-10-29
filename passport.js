@@ -9,13 +9,13 @@ passport.use('login', new LocalStrategy({
     passwordField: 'password'
 }, async function (email, password, done) {
     try {
-        const user = await UserModel.findOne({ email });
+        const user = await UserModel.findOne({ $or: [{ email: email }, { name: email }] });
         if (!user) {
             done(null, false, 'Nombre de Usuario Incorrecto');
         }
         user.isValidPassword(password)
             .then(valid => {
-                
+
                 if (!valid) {
                     done(null, false, 'Contraseña Incorrecta');
                 }

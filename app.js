@@ -6,16 +6,14 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-
 require('./passport');
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/indexRouter');
 const profileRouter = require('./routes/profile');
-const auth = require('./routes/auth');
-const mailRouter = require('./routes/mail');
+const authRouter = require('./routes/authRouter');
+const mailRouter = require('./routes/mailRouter');
 const contractRouter = require('./routes/contractRouter');
 const infoImageRouter = require('./routes/infoImageRouter');
-
 
 var dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/loud';
 
@@ -35,7 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/auth', auth);
+app.use('/api', authRouter);
 
 app.use('/api', passport.authenticate('jwt', { session: false }), profileRouter);
 app.use('/api', passport.authenticate('jwt', { session: false }), contractRouter);
