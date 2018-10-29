@@ -1,0 +1,51 @@
+- var total = data.length
+
+<!DOCTYPE html>
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    script(src="/jquery-3.3.1.js")
+    script(src="/Tabs.js")
+    script(src="/Slideshow.js")
+    script(src="/ToggleLoginForm.js")
+    link(rel="stylesheet", href="/Reset.css")
+    link(rel="stylesheet", href="/Main.css")
+    title Document
+  body
+    header
+      img(src="../api/info/picture/banner", alt="LOGO", srcset="")
+      button#showLogin.toggleFormShow(onclick="showForm()") Sesión
+      #loginForm.toggleForm
+        form.toggleFormContainer(action="", method="post")
+          button.toggleFormHide(onclick="hideForm()", type="button") Ocultar
+          input(type="email", name="email" placeholder="Correo Electronico" required)
+          input(type="password", name="password" placeholder="Contraseña" required)
+          .toggleInput
+            input#remember(type="checkbox", name="remember")
+            label(for="remember") Recordarme
+          button.toggleFormSubmit(type="submit") Iniciar
+
+    section
+      table
+        tr
+          td#mainDefault.mainTab(onclick="mainTab(event, 'mags')") Revistas
+          td.mainTab(onclick="mainTab(event, 'info')") Información
+
+
+      #mags.mainTabContent
+        table
+          tr
+            td#magDefault.magTab(onclick="magTab(event, '1')") La Fe
+            td.magTab(onclick="magTab(event, '2')") Huinala
+            td.magTab(onclick="magTab(event, '3')") Nueva Linda Vista
+        #1.magTabContent
+          .slidesContainer
+            each item, index in data
+              .slide1
+                .numbertext #{(index+1)}/#{total}
+                img(src="../api/picture/"+item._id, alt=""+(index+1))
+            a.prev1(onclick="changeSlides(1, -1)") ❮
+            a.next1(onclick="changeSlides(1, 1)") ❯
+        script.
+          slideIndex1 = 1;
+          showSlides(1, slideIndex1);

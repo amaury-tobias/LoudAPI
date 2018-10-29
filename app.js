@@ -14,6 +14,8 @@ const profileRouter = require('./routes/profile');
 const auth = require('./routes/auth');
 const mailRouter = require('./routes/mail');
 const contractRouter = require('./routes/contractRouter');
+const infoImageRouter = require('./routes/infoImageRouter');
+
 
 var dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/loud';
 
@@ -33,10 +35,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-
 app.use('/auth', auth);
+
 app.use('/api', passport.authenticate('jwt', { session: false }), profileRouter);
 app.use('/api', passport.authenticate('jwt', { session: false }), contractRouter);
+app.use('/api', passport.authenticate('jwt', { session: false }), infoImageRouter);
 
 app.use('/api/mail', passport.authenticate('jwt', { session: false }), mailRouter);
 

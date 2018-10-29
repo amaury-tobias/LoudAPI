@@ -29,7 +29,7 @@ router.post('/picture', upload.single('img'), function (req, res) {
     newPic.img.data = fs.readFileSync(req.file.path);
     newPic.img.contentType = req.file.mimetype;
     newPic.save();
-
+    
     res.status(200).json({ id: newPic._id });
 
 });
@@ -76,6 +76,11 @@ router.get('/picture/:id', function (req, res) {
         .catch(err => res.json(err))
 });
 
-
-
+router.get('/xd', function (req, res) {
+    ImageModel.find().sort({ page: 'asc' })
+        .then(images => {
+            res.render('images', { data: images });
+        })
+        .catch(err => res.json(err))
+})
 module.exports = router;
