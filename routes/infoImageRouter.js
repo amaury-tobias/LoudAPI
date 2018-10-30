@@ -4,9 +4,11 @@ const fs = require('fs');
 const InfoModel = require('../models/infoModel')
 const multer = require('multer');
 
+const passport = require('passport');
+
 const upload = multer({ dest: 'uploads/' });
 
-router.post('/info/picture', upload.single('img'), function (req, res) {
+router.post('/info/picture', passport.authenticate('jwt', { session: false }), upload.single('img'), function (req, res) {
     const strId = req.body.strId;
 
     InfoModel.findOneAndDelete({ strId: strId })
@@ -26,18 +28,9 @@ router.post('/info/picture', upload.single('img'), function (req, res) {
         });
 });
 
-router.get('/info/album', function (req, res) {
-    InfoModel.find()
-        .then(images => {
-            res.json(images);
-        })
-        .catch(err => res.json(err))
-});
-
-router.get('/info/picture/banner', function (req, res) {
+router.get('/info/picture/:id', function (req, res) {
     const id = req.params.id;
-
-    InfoModel.findOne({ strId: 'banner' })
+    InfoModel.findOne({ strId: id })
         .then(image => {
             res.contentType(image.img.contentType);
             res.send(image.img.data);

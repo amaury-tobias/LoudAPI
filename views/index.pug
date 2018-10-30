@@ -1,11 +1,82 @@
-extends layout
+<!DOCTYPE html>
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    script(src="/jquery-3.3.1.js")
+    script(src="/Tabs.js")
+    script(src="/Slideshow.js")
+    script(src="/ToggleLoginForm.js")
+    link(rel="stylesheet", href="/Reset.css")
+    link(rel="stylesheet", href="/Main.css")
+    title Guia del Lago
+  body
+    header
+      img(src="/api/info/picture/banner", alt="BANNER", srcset="")
+      button#showLogin.toggleFormShow(onclick="showForm()") Sesión
+      #loginForm.toggleForm
+        form.toggleFormContainer(action="/api/login", method="post")
+          button.toggleFormHide(onclick="hideForm()", type="button") Ocultar
+          input(type="email", name="email" placeholder="Correo Electronico" required)
+          input(type="password", name="password" placeholder="Contraseña" required)
+          .toggleInput
+            input#remember(type="checkbox", name="remember")
+            label(for="remember") Recordarme
+          button.toggleFormSubmit(type="submit") Iniciar
 
-block content
-  p Bienvenido
-    h1 Loud API
-    
-  a(href="/api/profile") Profile (requiere sesion)
-  br
-  a(href="/api/signup") Signup
-  br
-  a(href="/api/login") Login
+    section
+      table
+        tr
+          td#mainDefault.mainTab(onclick="mainTab(event, 'mags')") Revistas
+          td.mainTab(onclick="mainTab(event, 'info')") Información
+
+      #mags.mainTabContent
+        table
+          tr
+            td#magDefault.magTab(onclick="magTab(event, '1')") La Fe
+            td.magTab(onclick="magTab(event, '2')") Huinala
+            td.magTab(onclick="magTab(event, '3')") Nueva Linda Vista
+
+
+        each page, index in zones
+          .magTabContent(id=`${(index + 1)}`)
+            .slidesContainer
+              each image in page
+                div(class=`slide${image.zone}`)
+                  .numbertext #{image.page}/#{page.length}
+                  img(src=`/api/picture/${image._id}`, alt=`${image._id}`)
+
+              a(class=`prev${(index+1)}` ,onclick=`changeSlides(${(index +1)}, -1)`) ❮
+              a(class=`next${(index+1)}` ,onclick=`changeSlides(${(index +1)}, 1)`) ❯
+
+              div(class=`gallery${index +1}`)
+                .thumbnailContainer
+                  each image in page
+                    img(class=`thumbnail${(index+1)}`, src=`/api/picture/${image._id}`, alt=`${image._id}`, onclick=`currentSlide(${(index+1)}, ${image.page})`)
+
+              script.
+                slideIndex1 = 1;
+                showSlides(1, slideIndex1);
+              script.
+                slideIndex2 = 1;
+                showSlides(2, slideIndex2);
+              script.
+                slideIndex3 = 1;
+                showSlides(3, slideIndex3);
+        
+      #info.mainTabContent
+        table
+          tr
+            td#infoDefault.infoTab(onclick="infoTab(event, 'P')") Precios
+            td.infoTab(onclick="infoTab(event, 'Z')") Zonas
+        #P.infoTabContent
+          img(src="", alt="Precios")
+        #Z.infoTabContent
+          img(src="", alt="Zonas")
+      script.
+        document.getElementById("mainDefault").click();
+        document.getElementById("magDefault").click();
+        document.getElementById("infoDefault").click();
+
+

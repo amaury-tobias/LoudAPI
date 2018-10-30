@@ -9,7 +9,7 @@ const passport = require('passport');
 require('./passport');
 
 const indexRouter = require('./routes/indexRouter');
-const profileRouter = require('./routes/profile');
+const imagesRouter = require('./routes/imagesRouter');
 const authRouter = require('./routes/authRouter');
 const mailRouter = require('./routes/mailRouter');
 const contractRouter = require('./routes/contractRouter');
@@ -34,12 +34,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', authRouter);
+app.use('/api', infoImageRouter);
+app.use('/api', imagesRouter);
 
-app.use('/api', passport.authenticate('jwt', { session: false }), profileRouter);
 app.use('/api', passport.authenticate('jwt', { session: false }), contractRouter);
-app.use('/api', passport.authenticate('jwt', { session: false }), infoImageRouter);
-
-app.use('/api/mail', passport.authenticate('jwt', { session: false }), mailRouter);
+app.use('/api', passport.authenticate('jwt', { session: false }), mailRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

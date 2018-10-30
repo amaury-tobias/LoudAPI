@@ -1,9 +1,0 @@
-extends layout
-
-block content
-  h1 Login
-
-  form(action="/api/login", method="post")
-    input(type="text", name="email" placeholder="username or email")
-    input(type="password", name="password" placeholder="password")
-    input(type="submit", value="Submit")

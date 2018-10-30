@@ -3,18 +3,9 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 var UserModel = require('../models/usermodel');
 
-
 var router = express.Router();
 
 const cookieMaxAge = 1000 * 60 * 60 * 24 * 10;
-
-router.get('/signup', function (req, res) {
-    res.render('signup');
-});
-
-router.get('/login', function (req, res) {
-    res.render('login');
-});
 
 router.post('/signup', function (req, res, next) {
     const email = req.body.email;
@@ -37,6 +28,7 @@ router.post('/signup', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
+    const remember = req.body.remember;
     passport.authenticate('login', { session: false }, (err, user, info) => {
         if (err | !user) {
             return res.status(301).json({
@@ -52,14 +44,14 @@ router.post('/login', function (req, res, next) {
             const body = { _id: user._id, email: user.email };
             const token = jwt.sign({ user: body }, 'GuiaDelLago');
             res.cookie('jwt', token, { maxAge: cookieMaxAge });
-            return res.redirect('../api/profile');
+            return res.redirect('/');
         });
     })(req, res);
 });
 
 router.get('/close', function (req, res) {
     res.clearCookie('jwt');
-    res.redirect('../');
+    res.redirect('/');
 });
 
 module.exports = router;
