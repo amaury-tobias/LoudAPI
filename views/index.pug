@@ -21,7 +21,7 @@ html(lang="es")
       #loginForm.toggleForm
         form.toggleFormContainer(action="/api/login", method="post")
           button.toggleFormHide(onclick="hideForm()", type="button") Ocultar
-          input(type="email", name="email" placeholder="Correo Electronico" required)
+          input(type="text", name="email" placeholder="Correo Electronico" required)
           input(type="password", name="password" placeholder="Contraseña" required)
           .toggleInput
             input#remember(type="checkbox", name="remember")
