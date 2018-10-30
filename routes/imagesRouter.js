@@ -11,15 +11,23 @@ router.post('/picture', passport.authenticate('jwt', { session: false }), upload
     const zone = req.body.zone
     const page = req.body.page
 
-    var newPic = new ImageModel();
-    newPic.zone = zone;
-    newPic.page = page;
-    newPic.img.data = fs.readFileSync(req.file.path);
-    newPic.img.contentType = req.file.mimetype;
-    newPic.save();
-
-    res.status(200).json({ id: newPic._id });
-
+    ImageModel.findOneAndDelete({ zone: zone, page: page })
+        .then(result => {            
+            var newPic = new ImageModel();
+            ImageModel
+            if (result != null) {
+                newPic._id = result._id;
+            }
+            newPic.zone = zone;
+            newPic.page = page;
+            newPic.img.data = fs.readFileSync(req.file.path);
+            newPic.img.contentType = req.file.mimetype;
+            newPic.save();
+            res.status(200).json({ id: newPic._id });
+        })
+        .catch(err => {
+            res.json(err);
+        });
 });
 
 router.get('/picture/:id', function (req, res) {
