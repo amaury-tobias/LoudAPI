@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const ImageModel = require('../models/imageModel');
+const passport = require('passport');
 
-router.get('/', function (req, res, next) {  
-  ImageModel.find().sort({ zone: 1, page: 1 })
+router.get('/', function (req, res, next) {
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    
+    ImageModel.find().sort({ zone: 1, page: 1 })
     .then(images => {
       var zone1 = [], zone2 = [], zone3 = [];
       images.forEach(result => {
@@ -19,9 +22,18 @@ router.get('/', function (req, res, next) {
             break;
         }
       });
-      res.render('index', { zones: [zone1, zone2, zone3] });
+      if (err | !user) {
+        res.render('index', { zones: [zone1, zone2, zone3] });
+      }
+      req.login(user, { session: false }, (err) => {
+        if (err) {
+          res.send(err);
+        }
+        res.render('index', { zones: [zone1, zone2, zone3], user: user });
+      });
     })
     .catch(err => res.json(err))
+  })(req, res)
 });
 
 module.exports = router;

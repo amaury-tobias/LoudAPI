@@ -14,7 +14,10 @@ html(lang="es")
   body
     header
       img(src="/api/info/picture/banner", alt="BANNER", srcset="")
-      button#showLogin.toggleFormShow(onclick="showForm()") Sesión
+      if (!user)
+        button#showLogin.toggleFormShow(onclick="showForm()") Sesión
+      else
+        a#showLogin.toggleFormShow(href="/api/close") Cerrar Sesión
       #loginForm.toggleForm
         form.toggleFormContainer(action="/api/login", method="post")
           button.toggleFormHide(onclick="hideForm()", type="button") Ocultar

@@ -29,6 +29,7 @@ router.post('/signup', function (req, res, next) {
 
 router.post('/login', function (req, res, next) {
     const remember = req.body.remember;
+    
     passport.authenticate('login', { session: false }, (err, user, info) => {
         if (err | !user) {
             return res.status(301).json({
@@ -43,7 +44,11 @@ router.post('/login', function (req, res, next) {
             }
             const body = { _id: user._id, email: user.email };
             const token = jwt.sign({ user: body }, 'GuiaDelLago');
-            res.cookie('jwt', token, { maxAge: cookieMaxAge });
+            if (remember) {
+                res.cookie('jwt', token, { maxAge: cookieMaxAge });
+            } else {
+                res.cookie('jwt', token);
+            }
             return res.redirect('/');
         });
     })(req, res);
