@@ -23,13 +23,13 @@ router.get('/', function (req, res, next) {
         }
       });
       if (err | !user) {
-        res.render('index', { zones: [zone1, zone2, zone3] });
+        return res.render('index', { zones: [zone1, zone2, zone3] });
       }
       req.login(user, { session: false }, (err) => {
         if (err) {
-          res.send(err);
+          return res.send(err);
         }
-        res.render('index', { zones: [zone1, zone2, zone3], user: user });
+        return res.render('index', { zones: [zone1, zone2, zone3], user: user });
       });
     })
     .catch(err => res.json(err))

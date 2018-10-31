@@ -12,10 +12,10 @@ router.post('/mail/send', function (req, res, next) {
 
     transporter.sendMail(message('amaury.tobiasqr@gmail.com', to, subject))
         .then(info => {
-            res.status(200).json(info);
+            return res.status(200).json(info);
         })
         .catch(err => {
-            res.status(500).json(err);
+            return res.status(500).json(err);
         });
 });
 

@@ -16,7 +16,7 @@ router.post('/signup', function (req, res, next) {
     UserModel.create({ name, email, password, role })
         .then(user => {
             if (!user) {
-                res.status(500).json({ info: 'Error al crear usuario' });
+                return res.status(500).json({ info: 'Error al crear usuario' });
             }
 
             const body = { _id: user._id, email: user.email };
@@ -40,7 +40,7 @@ router.post('/login', function (req, res, next) {
         }
         req.login(user, { session: false }, (err) => {
             if (err) {
-                res.send(err);
+                return res.send(err);
             }
             const body = { _id: user._id, email: user.email };
             const token = jwt.sign({ user: body }, 'GuiaDelLago');
@@ -56,7 +56,7 @@ router.post('/login', function (req, res, next) {
 
 router.get('/close', function (req, res) {
     res.clearCookie('jwt');
-    res.redirect('/');
+    return res.redirect('/');
 });
 
 module.exports = router;

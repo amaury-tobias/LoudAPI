@@ -21,10 +21,10 @@ router.post('/info/picture', passport.authenticate('jwt', { session: false }), u
             newPic.img.data = fs.readFileSync(req.file.path);
             newPic.strId = strId;
             newPic.save();
-            res.json(newPic._id);
+            return res.json(newPic._id);
         })
         .catch(err => {
-            res.json(err);
+            return res.json(err);
         });
 });
 
@@ -33,7 +33,7 @@ router.get('/info/picture/:id', function (req, res) {
     InfoModel.findOne({ strId: id })
         .then(image => {
             res.contentType(image.img.contentType);
-            res.send(image.img.data);
+            return res.send(image.img.data);
         })
         .catch(err => res.json(err))
 });

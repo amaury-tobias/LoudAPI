@@ -23,21 +23,20 @@ router.post('/picture', passport.authenticate('jwt', { session: false }), upload
             newPic.img.data = fs.readFileSync(req.file.path);
             newPic.img.contentType = req.file.mimetype;
             newPic.save();
-            res.status(200).json({ id: newPic._id });
+            return res.status(200).json({ id: newPic._id });
         })
         .catch(err => {
-            res.json(err);
+            return res.json(err);
         });
 });
 
 router.get('/picture/:id', function (req, res) {
     const id = req.params.id;
 
-
     ImageModel.findById(id)
         .then(image => {
             res.contentType(image.img.contentType);
-            res.send(image.img.data);
+            return res.send(image.img.data);
         })
         .catch(err => res.json(err))
 });
