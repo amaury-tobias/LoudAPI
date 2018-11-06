@@ -3,14 +3,13 @@ const pug = require('pug');
 module.exports = function (from, to, subject) {
     const htmlMailCompiled = pug.renderFile(`./mailer/mailTemplate.pug`,
         {
-            title: 'Funciona :U',
-            user: 'huehuehu'
+            title: 'Completa tu registro',
+            token: subject
         });
-
     return message = {
         from,
         to,
-        subject,
+        subject: 'Completa tu registro',
         html: htmlMailCompiled,
         attachments: [
             {

@@ -20,7 +20,7 @@ html
       img(src='/img/Logo1.jpg', alt='Logo')
       button#showLogin.toggleFormShow(onclick='showForm()') Sesión
       #loginForm.toggleForm
-        form.toggleFormContainer
+        form.toggleFormContainer(action="/api/close")
           button.toggleFormHide(type='button', onclick='hideForm()') Ocultar
           button.toggleFormCancel(type='submit') Cerrar
     section
@@ -177,12 +177,12 @@ html
                   td#gRole Rol 3
                   td#gAble Menos que el administrador.
         #IU.usersTabContent
-          form(onsubmit='return validateInviteUser()')
+          form(onsubmit='return validateInviteUser()', action="/api/mail/send", method="post")
             table.options
               tbody
                 tr
                   td
-                    input(type='email', name='iUEmail', placeholder='Correo electronico', required='')
+                    input(type='email', name='to', placeholder='Correo electronico', required='')
                   td.selectInput
                     select#iURole(name='iURole', required='')
                       option(value='0') Rol

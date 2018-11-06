@@ -37,8 +37,9 @@ app.use('/api', authRouter);
 app.use('/api', infoImageRouter);
 app.use('/api', imagesRouter);
 
-app.use('/api', passport.authenticate('jwt', { session: false }), contractRouter);
 app.use('/api', passport.authenticate('jwt', { session: false }), mailRouter);
+
+app.use('/api', passport.authenticate('jwt', { session: false }), contractRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

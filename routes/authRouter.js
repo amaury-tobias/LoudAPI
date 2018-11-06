@@ -8,11 +8,29 @@ var router = express.Router();
 const cookieMaxAge = 1000 * 60 * 60 * 24 * 10;
 
 router.post('/signup', function (req, res, next) {
-    const email = req.body.email;
+    const token = req.query.id;
     const password = req.body.password;
     const name = req.body.name;
-    const role = req.body.role;
 
+    jwt.verify(token, 'invite', function (err, decoded) {
+        if (err) {
+            return res.status(301).render('invalidToken')
+        }
+        UserModel.create({ name, email: decoded.sub, password, role: decoded.role })
+            .then(user => {
+                if (!user) {
+                    return res.status(500).json({ info: 'Error al crear usuario' });
+                }
+
+                const body = { _id: user._id, email: user.email };
+                const token = jwt.sign({ user: body }, 'GuiaDelLago');
+                res.status(201).cookie('jwt', token, { maxAge: cookieMaxAge });
+                return res.redirect('/');
+            })
+            .catch(err => res.status(400).json({ info: err }));
+    });
+
+    /*
     UserModel.create({ name, email, password, role })
         .then(user => {
             if (!user) {
@@ -25,11 +43,24 @@ router.post('/signup', function (req, res, next) {
             return res.redirect('../api/profile');
         })
         .catch(err => res.status(400).json({ info: err }));
+    */
+});
+
+router.get('/registro', function (req, res) {
+    const token = req.query.id;
+
+    jwt.verify(token, 'invite', function (err, decoded) {
+        if (err) {
+            return res.status(301).render('invalidToken')
+        }
+        res.locals.token = token;
+        res.render("signup");
+    });
 });
 
 router.post('/login', function (req, res, next) {
     const remember = req.body.remember;
-    
+
     passport.authenticate('login', { session: false }, (err, user, info) => {
         if (err | !user) {
             return res.status(301).json({
