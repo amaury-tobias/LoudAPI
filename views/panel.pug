@@ -1,0 +1,650 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title Guia del Lago - Administrar
+    link(rel='stylesheet', type='text/css', href='/Reset.css')
+    link(rel='stylesheet', type='text/css', href='/Main.css')
+    link(rel='stylesheet', type='text/css', href='/Admin.css')
+    script(src='jquery-3.3.1.js')
+    script(src='/Tabs.js')
+    script(src='/ToggleLoginForm.js')
+    script(src='/ToggleOptions.js')
+    script(src='/CustomSelect.js')
+    script(src='/AdminValidations.js')
+    script(src='/FileIndicator.js')
+    script(src='/ModalBox.js')
+    script(src='/SearchBar.js')
+  body
+    header
+      img(src='/img/Logo1.jpg', alt='Logo')
+      button#showLogin.toggleFormShow(onclick='showForm()') Sesión
+      #loginForm.toggleForm
+        form.toggleFormContainer
+          button.toggleFormHide(type='button', onclick='hideForm()') Ocultar
+          button.toggleFormCancel(type='submit') Cerrar
+    section
+      table
+        tbody
+          tr
+            td#mainDefault.mainTab(onclick="mainTab(event, 'users')") Usuarios
+            td.mainTab(onclick="mainTab(event, 'clients')") Clientes
+            td.mainTab(onclick="mainTab(event, 'site')") Sitio
+      #users.mainTabContent
+        table
+          tbody
+            tr
+              td#usersDefault.usersTab(onclick="usersTab(event, 'H')") Historial
+              td.usersTab(onclick="usersTab(event, 'G')") Gestionar
+              td.usersTab(onclick="usersTab(event, 'IU')") Invitar
+        #H.usersTabContent
+          button#showRecordOptions.white(onclick='showRecordOptions()') Opciones
+          #recordOptions.options
+            button.black(onclick='hideRecordOptions()') Ocultar
+            table
+              tbody
+                tr
+                  td#recordDefault.recordTab.subTab(onclick="recordTab(event, 'recordFilters')") Filtrar
+                  td.recordTab.subTab(onclick="recordTab(event, 'recordDelete')") Eliminar
+            #recordFilters.recordTabContent
+              form(onsubmit='return validateRecordFilter()')
+                table.options
+                  tbody
+                    tr
+                      td.selectInput
+                        select#rAmount(name='rAmount')
+                          option(value='0') Cantidad de registros
+                          option(value='10') 10
+                          option(value='30') 30
+                          option(value='75') 75
+                          option(value='All') Todos
+                      td.selectInput
+                        select#rSort(name='rSort')
+                          option(value='0') Ordenar por
+                          option(value='new') Mas nuevos
+                          option(value='old') Mas viejos
+                    tr
+                      td.toggleInput
+                        input#rDate(type='checkbox', name='rDate', checked='')
+                        label(for='rDate')
+                          | Ver fecha
+                      td.toggleInput
+                        input#rUser(type='checkbox', name='rUser', checked='')
+                        label(for='rUser')
+                          | Ver usuario
+                button.green(type='submit') Filtrar
+            #recordDelete.recordTabContent
+              form(onsubmit='return validateRecordDelete()')
+                table.options
+                  tbody
+                    tr
+                      td.selectInput
+                        select#dAmount(name='dAmount')
+                          option(value='0') Cantidad de registros
+                          option(value='10') 10
+                          option(value='30') 30
+                          option(value='75') 75
+                          option(value='All') Todos
+                      td.selectInput
+                        select#dSort(name='dSort')
+                          option(value='0') Ordenar por
+                          option(value='new') Mas nuevos
+                          option(value='old') Mas viejos
+                button.red(type='submit') Eliminar
+          .currentText 5 / 30
+          table.list
+            tbody
+              tr
+                th#hDate Fecha
+                th#hUser Usuario
+                th#hAction Acción
+              tr
+                td#hDate 31/12/2099 23:59
+                td#hUser Nombre
+                td#hAction Cambios de cliente.
+              tr
+                td#hDate 31/12/2099 23:59
+                td#hUser Nombre
+                td#hAction Cambios de cliente.
+              tr
+                td#hDate 31/12/2099 23:59
+                td#hUser Nombre
+                td#hAction Cambios de cliente.
+              tr
+                td#hDate 31/12/2099 23:59
+                td#hUser Nombre
+                td#hAction Cambios de cliente.
+              tr
+                td#hDate 31/12/2099 23:59
+                td#hUser Nombre
+                td#hAction Cambios de cliente.
+        #G.usersTabContent
+          .currentText 3
+          form
+            table.listInput
+              tbody
+                tr
+                  th#gUser Usuario
+                  th#gRole Rol
+                  th#gDelete Eliminar
+                tr
+                  td#gUser Nombre
+                  td#gRole Administrador
+                  td#gDelete Permanente
+                tr
+                  td#gUser Nombre
+                  td.selectInput
+                    select(name='gUser1Role', required='')
+                      option(value='1') Rol 1
+                      option(value='2') Rol 2
+                      option(value='3') Rol 3
+                  td#gDelete.toggleInput.red
+                    input#gUser1Delete(type='checkbox', name='gUser1Delete')
+                    label(for='gUser1Delete')
+                      | Eliminar
+                tr
+                  td#gUser Nombre
+                  td.selectInput
+                    select(name='gUser2Role', required='')
+                      option(value='1') Rol 1
+                      option(value='2') Rol 2
+                      option(value='3') Rol 3
+                  td#gDelete.toggleInput.red
+                    input#gUser2Delete(type='checkbox', name='gUser2Delete')
+                    label(for='gUser2Delete')
+                      | Eliminar
+            button.green(type='submit') Modificar
+          .currentText.inside  
+          button#showManageOptions.white(onclick='showManageOptions()') Roles
+          #manageOptions.options
+            button.black(onclick='hideManageOptions()') Ocultar
+            .currentText.inside 4
+            table.list
+              tbody
+                tr
+                  th#gRole Rol
+                  th#gAble Permisos
+                tr
+                  td#gRole Administrador
+                  td#gAble Todo.
+                tr
+                  td#gRole Rol 1
+                  td#gAble Menos que el administrador.
+                tr
+                  td#gRole Rol 2
+                  td#gAble Menos que el administrador.
+                tr
+                  td#gRole Rol 3
+                  td#gAble Menos que el administrador.
+        #IU.usersTabContent
+          form(onsubmit='return validateInviteUser()')
+            table.options
+              tbody
+                tr
+                  td
+                    input(type='email', name='iUEmail', placeholder='Correo electronico', required='')
+                  td.selectInput
+                    select#iURole(name='iURole', required='')
+                      option(value='0') Rol
+                      option(value='1') Rol 1
+                      option(value='2') Rol 2
+                      option(value='3') Rol 3
+            button.green(type='submit') Invitar
+          .currentText.inside  
+          button#showInviteOptions.white(onclick='showInviteOptions()') Roles
+          #inviteOptions.options
+            button.black(onclick='hideInviteOptions()') Ocultar
+            .currentText.inside 4
+            table.list
+              tbody
+                tr
+                  th#gRole Rol
+                  th#gAble Permisos
+                tr
+                  td#gRole Administrador
+                  td#gAble Todo.
+                tr
+                  td#gRole Rol 1
+                  td#gAble Menos que el administrador.
+                tr
+                  td#gRole Rol 2
+                  td#gAble Menos que el administrador.
+                tr
+                  td#gRole Rol 3
+                  td#gAble Menos que el administrador.
+      #clients.mainTabContent
+        table
+          tbody
+            tr
+              td#clientsDefault.clientsTab(onclick="clientsTab(event, 'AD')") Gestionar
+              td.clientsTab(onclick="clientsTab(event, 'AG')") Agregar
+              td.clientsTab(onclick="clientsTab(event, 'IC')") Invitar
+        #AD.clientsTabContent
+          button#showContractsOptions.white(onclick='showContractsOptions()') Opciones
+          #contractsOptions.options
+            button.black(onclick='hideContractsOptions()') Ocultar
+            table
+              tbody
+                tr
+                  td#contractsDefault.contractsTab.subTab(onclick="contractsTab(event, 'contractsFilters')") Filtrar
+                  td.contractsTab.subTab(onclick="contractsTab(event, 'contractsDelete')") Eliminar
+            #contractsFilters.contractsTabContent
+              form(onsubmit='return validateContractsFilter()')
+                table.options
+                  tbody
+                    tr
+                      td.selectInput
+                        select#cZone(name='cZone')
+                          option(value='0') Zona
+                          option(value='1') La Fe
+                          option(value='2') Huinala
+                          option(value='3') Nueva Linda Vista
+                      td.selectInput
+                        select#cMonth(name='cMonth')
+                          option(value='0') Mes
+                          option(value='1') Enero
+                          option(value='2') Febrero
+                          option(value='3') Marzo
+                          option(value='4') Abril
+                          option(value='5') Mayo
+                          option(value='6') Junio
+                          option(value='7') Julio
+                          option(value='8') Agosto
+                          option(value='9') Septiembre
+                          option(value='10') Octubre
+                          option(value='11') Noviembre
+                          option(value='12') Diciembre
+                    tr
+                      td.toggleInput
+                        input#cAll(type='radio', name='cView', value='all', checked='')
+                        label(for='cAll')
+                          | Ver todos
+                      td.toggleInput
+                        input#cDebt(type='radio', name='cView', value='debt')
+                        label(for='cDebt')
+                          | Ver faltantes
+                button.green(type='submit') Filtrar
+            #contractsDelete.contractsTabContent
+              form(onsubmit='return validateContractsDelete()')
+                table.options
+                  tbody
+                    tr
+                      td.selectInput
+                        select#dZone(name='dZone')
+                          option(value='0') Zona
+                          option(value='1') La Fe
+                          option(value='2') Huinala
+                          option(value='3') Nueva Linda Vista
+                      td.selectInput
+                        select#dMonth(name='dMonth')
+                          option(value='0') Mes
+                          option(value='1') Enero
+                          option(value='2') Febrero
+                          option(value='3') Marzo
+                          option(value='4') Abril
+                          option(value='5') Mayo
+                          option(value='6') Junio
+                          option(value='7') Julio
+                          option(value='8') Agosto
+                          option(value='9') Septiembre
+                          option(value='10') Octubre
+                          option(value='11') Noviembre
+                          option(value='12') Diciembre
+                button.red(type='submit') Eliminar
+          .currentText Zona Mes
+          table.listInput
+            tbody
+              tr.noBorder
+                td.input(colspan='5')
+                  input#fBuisness(type='text', placeholder='Buscar negocio')
+          form
+            table.listInput
+              tbody
+                tr
+                  th#cBuisness
+                    | Negocio
+                  th#cData
+                    | Detalles
+                  th#cPay
+                    | Cobrar
+                  th#cPaid
+                    | Cobrado
+                  th#cLeft
+                    | Faltante
+                tr
+                  td#cBuisness
+                    input(type='text', name='cId1', style='display: none;')
+                    .bName
+                      | Nombre Olov
+                  td#cData.toggleInput
+                    input#cData1(type='checkbox', onclick="openModalBox('cData1', 'cData1Content')")
+                    label(for='cData1')
+                      | Detalles
+                  td#cPay.input
+                    input#cPay1.number(type='text', name='cPay1', placeholder='00000')
+                  td#cPaid
+                    | 00000
+                  td#cLeft
+                    | 00000
+                tr.noBorder
+                  td(style='padding: 0px;')
+                    #cData1Content.modal
+                      .modalContent
+                        table.listInput
+                          tbody
+                            tr
+                              td Vendedor
+                              td Usuario 1
+                            tr
+                              td#cBonus.toggleInput
+                                input#cBonus1Val0(type='radio', name='cBonus1', value='0', checked='')
+                                label(for='cBonus1Val0')
+                                  | Anticipo pendiente
+                              td#cBonus.toggleInput.green
+                                input#cBonus1Val1(type='radio', name='cBonus1', value='1')
+                                label(for='cBonus1Val1')
+                                  | Anticipo pagado.
+                            tr
+                              td Cliente
+                              td Nombre apellido
+                            tr
+                              td Dirección
+                              td Dirección Dirección 1234
+                            tr
+                              td Teléfono
+                              td 00000000
+                            tr
+                              td Folio
+                              td 00000
+                            tr
+                              td Meses
+                              td 3
+                            tr
+                              td Espacio
+                              td Cuarto de pagina
+                            tr
+                              td Precio Total
+                              td 000000
+                            tr
+                              td#cCancel.toggleInput
+                                input#cCancel1Val0(type='radio', name='cCancel1', value='0', checked='')
+                                label(for='cCancel1Val0')
+                                  | Contrato activo
+                              td#cCancel.toggleInput.red
+                                input#cCancel1Val1(type='radio', name='cCancel1', value='1')
+                                label(for='cCancel1Val1')
+                                  | Contrato cancelado
+                tr
+                  td#cBuisness
+                    input(type='text', name='cId2', style='display: none;')
+                    .bName
+                      | Nombre Olov 2
+                  td#cData.toggleInput
+                    input#cData2(type='checkbox', onclick="openModalBox('cData2', 'cData2Content')")
+                    label(for='cData2')
+                      | Detalles
+                  td#cPay.input
+                    input#cPay2.number(type='text', name='cPay2', placeholder='00000')
+                  td#cPaid
+                    | 00000
+                  td#cLeft
+                    | 00000
+                tr.noBorder
+                  td(style='padding: 0px;')
+                    #cData2Content.modal
+                      .modalContent
+                        table.listInput
+                          tbody
+                            tr
+                              td Vendedor
+                              td Usuario 2
+                            tr
+                              td#cBonus.toggleInput
+                                input#cBonus2Val0(type='radio', name='cBonus2', value='0', checked='')
+                                label(for='cBonus2Val0')
+                                  | Anticipo pendiente
+                              td#cBonus.toggleInput.green
+                                input#cBonus2Val1(type='radio', name='cBonus2', value='1')
+                                label(for='cBonus2Val1')
+                                  | Anticipo pagado.
+                            tr
+                              td Cliente
+                              td Nombre2 apellido2
+                            tr
+                              td Dirección
+                              td Dirección2 Dirección2 12342
+                            tr
+                              td Teléfono
+                              td 00000000
+                            tr
+                              td Folio
+                              td 00000
+                            tr
+                              td Meses
+                              td 1
+                            tr
+                              td Espacio
+                              td Octavo de pagina
+                            tr
+                              td Precio Total
+                              td 000000
+                            tr
+                              td#cCancel.toggleInput
+                                input#cCancel2Val0(type='radio', name='cCancel2', value='0', checked='')
+                                label(for='cCancel2Val0')
+                                  | Contrato activo
+                              td#cCancel.toggleInput.red
+                                input#cCancel2Val1(type='radio', name='cCancel2', value='1')
+                                label(for='cCancel2Val1')
+                                  | Contrato cancelado
+                tr
+                  td#cBuisness X negocios totales
+                  td#cData  
+                  td#cPay  
+                  td#cPaid 000000
+                  td#cLeft 000000
+            button.green(type='submit') Modificar
+        #AG.clientsTabContent
+          form(onsubmit='return validateAddClient()')
+            table.listInput
+              tbody
+                tr
+                  th(colspan='2') Necesarios
+                tr
+                  td
+                    | Negocio
+                  td.input
+                    input(type='text', name='buisness', placeholder='Nombre', required='')
+                tr
+                  td
+                    | Zona
+                  td.selectInput
+                    select#zone(name='zone', required='')
+                      option(value='0') Zona
+                      option(value='1') La Fe
+                      option(value='2') Huinala
+                      option(value='3') Nueva Linda Vista
+                tr
+                  td
+                    | Mes inicial
+                  td.selectInput
+                    select#iMonth(name='iMonth', required='')
+                      option(value='0') Mes
+                      option(value='1') Enero
+                      option(value='2') Febrero
+                      option(value='3') Marzo
+                      option(value='4') Abril
+                      option(value='5') Mayo
+                      option(value='6') Junio
+                      option(value='7') Julio
+                      option(value='8') Agosto
+                      option(value='9') Septiembre
+                      option(value='10') Octubre
+                      option(value='11') Noviembre
+                      option(value='12') Diciembre
+                tr
+                  td
+                    | Meses
+                  td.selectInput
+                    select#mNumber(name='mNumber')
+                      option(value='0') 0
+                      option(value='1') 1
+                      option(value='2') 3
+                tr
+                  td
+                    | Precio total
+                  td.input
+                    input.number(type='text', name='total', placeholder='0000', required='')
+                tr
+                  td
+                    | Vendedor
+                  td.selectInput
+                    select#seller(name='seller')
+                      option(value='0') Usuario
+                      option(value='1') Usuario 1
+                      option(value='2') Usuario 2
+                      option(value='3') Usuario 3
+                      option(value='4') Usuario 4
+                tr
+                  th(colspan='2') Opcionales
+                tr
+                  td
+                    | Cliente
+                  td.input
+                    input(type='text', name='client', placeholder='Nombre')
+                tr
+                  td
+                    | Dirección
+                  td.input
+                    input(type='text', name='dir', placeholder='Lugar')
+                tr
+                  td
+                    | Teléfono
+                  td.input
+                    input.number(type='text', name='tel', placeholder='00000000')
+                tr
+                  td
+                    | Espacio
+                  td.selectInput
+                    select(name='space')
+                      option(value='0') Espacio
+                      option(value='1') Portada
+                      option(value='2') Contraportada
+                      option(value='3') Pagina completa
+                      option(value='4') Media pagina
+                      option(value='5') Cuarto de pagina
+                      option(value='6') Octavo de pagina
+                tr
+                  td
+                    | Folio
+                  td.input
+                    input.number(type='text', name='pNumber', placeholder='0000')
+            button.green(type='submit') Agregar
+        #IC.clientsTabContent
+          form
+            table.options
+              tbody
+                tr
+                  td
+                    input(type='email', name='iCEmail', placeholder='Correo electronico', required='')
+            button.green(type='submit') Invitar
+      #site.mainTabContent
+        table
+          tbody
+            tr
+              td#siteDefault.siteTab(onclick="siteTab(event, 'R')") Revistas
+              td.siteTab(onclick="siteTab(event, 'I')") Informacion
+              td.siteTab(onclick="siteTab(event, 'C')") Correos
+        #R.siteTabContent
+          form(onsubmit='return validateSiteMags()')
+            table.listInput
+              tbody
+                tr
+                  td.toggleInput
+                    input#sZone1(type='radio', name='zone', value='1', checked='', required='')
+                    label(for='sZone1')
+                      | La Fe
+                  td.toggleInput
+                    input#sZone2(type='radio', name='zone', value='2', required='')
+                    label(for='sZone2')
+                      | Huinala
+                  td.toggleInput
+                    input#sZone3(type='radio', name='zone', value='3', required='')
+                    label(for='sZone3')
+                      | Nueva Linda Vista
+                tr
+                  td.input(colspan='3')
+                    input#sImgs.fileInput(type='file', name='sImgs', accept='image/*', data-multiple-caption='total imagenes nuevas', multiple='')
+                    label(for='sImgs') Nuevas imagenes
+                tr
+                  td.input(colspan='3')
+                    input(type='text', name='sMagName', placeholder='Nuevo nombre')
+            button.green(type='submit') Cambiar
+        #I.siteTabContent
+          form(onsubmit='return validateSiteInfo()')
+            table.listInput
+              tbody
+                tr
+                  td.toggleInput
+                    input#sBanner(type='radio', name='option', value='banner', checked='', required='')
+                    label(for='sBanner')
+                      | Portada
+                  td.toggleInput
+                    input#sPrices(type='radio', name='option', value='prices', required='')
+                    label(for='sPrices')
+                      | Precios
+                  td.toggleInput
+                    input#sZones(type='radio', name='option', value='zones', required='')
+                    label(for='sZones')
+                      | Zonas
+                tr
+                  td.input(colspan='3')
+                    input#sInfo.fileInput(type='file', name='sInfo', accept='image/*')
+                    label(for='sInfo') Nueva imagen
+            button.green(type='submit') Cambiar
+        #C.siteTabContent
+          button#showTemplate1Options.white(onclick='showTemplate1Options()') Plantilla para clientes
+          #template1Options.options
+            button.black(onclick='hideTemplate1Options()') Ocultar
+            form
+              table.listInput
+                tbody
+                  tr
+                    td.input
+                      input#t1Logo.fileInput(type='file', name='t1Logo', accept='image/*')
+                      label(for='t1Logo') Nuevo imagen inicial
+                  tr
+                    td.input
+                      textarea(name='t1Msg', placeholder='Nuevo mensaje')
+                  tr
+                    td.input
+                      input#t1Info.fileInput(type='file', name='t1Info', accept='image/*')
+                      label(for='t1Info') Nueva imagen final
+              button.green(type='submit') Modificar
+          .currentText.inside  
+          button#showTemplate2Options.white(onclick='showTemplate2Options()') Plantilla para usuarios
+          #template2Options.options
+            button.black(onclick='hideTemplate2Options()') Ocultar
+            form
+              table.listInput
+                tbody
+                  tr
+                    td.input
+                      input#t2Logo.fileInput(type='file', name='t2Logo', accept='image/*')
+                      label(for='t2Logo') Nuevo imagen inicial
+                  tr
+                    td.input
+                      textarea(name='t2Msg', placeholder='Nuevo mensaje')
+              button.green(type='submit') Modificar
+      script.
+        document.getElementById("mainDefault").click();
+        document.getElementById("usersDefault").click();
+        document.getElementById("showInviteOptions").click();
+        document.getElementById("clientsDefault").click();
+        document.getElementById("siteDefault").click();
+        document.getElementById("recordDefault").click();
+        document.getElementById("contractsDefault").click();
+        setCustomSelects();
+        document.addEventListener("click", hideEveryCustomSelectBut);
+        setFileIndicators();
+        setModalBoxes();

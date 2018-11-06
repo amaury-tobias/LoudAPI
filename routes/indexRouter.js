@@ -36,4 +36,8 @@ router.get('/', function (req, res, next) {
   })(req, res)
 });
 
+router.get('/panel', function (req, res, next) {
+  return res.render('panel');
+});
+
 module.exports = router;

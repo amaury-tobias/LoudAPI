@@ -130,3 +130,22 @@ function recordTab(evt, tab)
     evt.currentTarget.className += " active";
     document.getElementById(tab).style.display = "block";    
 }
+
+function contractsTab(evt, tab)
+{
+    var i, contractsTabs, contractsTabsContent;
+    
+    // Remove actives.
+    contractsTabs = document.getElementsByClassName("contractsTab");
+    for (i = 0; i < contractsTabs.length; i++)
+        contractsTabs[i].className = contractsTabs[i].className.replace(" active", "")
+    
+    // Hide contents.
+    contractsTabsContent = document.getElementsByClassName("contractsTabContent");
+    for(i = 0; i < contractsTabsContent.length; i++)
+        contractsTabsContent[i].style.display = "none";
+    
+    // Activate and show tab.
+    evt.currentTarget.className += " active";
+    document.getElementById(tab).style.display = "block";    
+}

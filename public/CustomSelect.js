@@ -17,7 +17,7 @@ function setCustomSelects()
         // Create a div to use it as the options list.
         optionsList = document.createElement("DIV");
         optionsList.setAttribute("class", "selectInputList selectInputHide");
-        for (j = 0; j < baseSelect.length; j++) 
+        for (j = 1; j < baseSelect.length; j++) 
         {
             // Create a div to use it as a single option in the list.
             option = document.createElement("DIV");

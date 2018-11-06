@@ -33,3 +33,39 @@ function hideInviteOptions()
     document.getElementById("inviteOptions").style.display = "none";
     document.getElementById("showInviteOptions").style.display = "block";
 }
+
+function showContractsOptions() 
+{
+    document.getElementById("contractsOptions").style.display = "block";
+    document.getElementById("showContractsOptions").style.display = "none";
+}
+
+function hideContractsOptions() 
+{
+    document.getElementById("contractsOptions").style.display = "none";
+    document.getElementById("showContractsOptions").style.display = "block";
+}
+
+function showTemplate1Options() 
+{
+    document.getElementById("template1Options").style.display = "block";
+    document.getElementById("showTemplate1Options").style.display = "none";
+}
+
+function hideTemplate1Options() 
+{
+    document.getElementById("template1Options").style.display = "none";
+    document.getElementById("showTemplate1Options").style.display = "block";
+}
+
+function showTemplate2Options() 
+{
+    document.getElementById("template2Options").style.display = "block";
+    document.getElementById("showTemplate2Options").style.display = "none";
+}
+
+function hideTemplate2Options() 
+{
+    document.getElementById("template2Options").style.display = "none";
+    document.getElementById("showTemplate2Options").style.display = "block";
+}

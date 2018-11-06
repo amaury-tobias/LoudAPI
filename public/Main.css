@@ -68,7 +68,7 @@ td.active
     background-color: rgba(255,255,255,1);
     color:  #8daa79; 
 }
-.mainTabContent, .magTabContent, .infoTabContent, .recordTabContent
+.mainTabContent, .magTabContent, .infoTabContent, .usersTabContent, .recordTabContent, .clientsTabContent, .contractsTabContent, .siteTabContent
 {    
     display: none;
     animation: fadeFx 1s; /* Fading effect takes 1 second */
@@ -210,7 +210,7 @@ img.thumbnail1.active, img.thumbnail2.active, img.thumbnail3.active
     background-color: rgba(255, 255, 255, 0);
     box-shadow: 0px 10px 30px 5px rgba(0,0,0,0.5);
 }
-.toggleFormContainer input[type=text], .toggleFormContainer input[type=password], .toggleFormContainer button
+.toggleFormContainer input[type=email], .toggleFormContainer input[type=password], .toggleFormContainer button
 {
     width: 100%;
     padding: 15px;
@@ -220,11 +220,11 @@ img.thumbnail1.active, img.thumbnail2.active, img.thumbnail3.active
     color: #2c1a6c;
     transition: 0.3s;
 }
-.toggleFormContainer input[type=text], .toggleFormContainer input[type=password]
+.toggleFormContainer input[type=email], .toggleFormContainer input[type=password]
 {
     color: #8daa79;
 }
-.toggleFormContainer input[type=text]:focus, .toggleFormContainer input[type=password]:focus, .toggleFormHide:focus, .toggleFormSubmit:focus, .toggleFormCancel
+.toggleFormContainer input[type=email]:focus, .toggleFormContainer input[type=password]:focus, .toggleFormHide:focus, .toggleFormSubmit:focus, .toggleFormCancel
 {    
     outline: none;
 }
@@ -267,7 +267,7 @@ img.thumbnail1.active, img.thumbnail2.active, img.thumbnail3.active
     cursor: pointer;
     user-select: none;
     font-size: 20px;
-    transition: 0.3s;
+    transition: 0.3s;    
 }
 .toggleInput:hover
 {

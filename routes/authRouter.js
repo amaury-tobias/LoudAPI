@@ -49,7 +49,7 @@ router.post('/login', function (req, res, next) {
             } else {
                 res.cookie('jwt', token);
             }
-            return res.redirect('/');
+            return res.redirect('/panel');
         });
     })(req, res);
 });
