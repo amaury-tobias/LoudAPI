@@ -7,7 +7,7 @@ const message = require('../mailer/mailMessage')
 var router = express.Router();
 
 router.post('/mail/send', async function (req, res, next) {
-    const from = 'Guía del Lago <amaury.tobiasqr@gmail.com>';
+    const from = 'Guía del Lago <donotreply@guialago.com>';
     const to = req.body.to;
     const role = req.body.iURole;
     try {
