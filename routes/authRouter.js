@@ -17,13 +17,13 @@ router.post('/signup', async function (req, res, next) {
 
         let decoded = await jwt.verify(token, 'invite');
         let result = await TokenModel.findByIdAndDelete(decoded.sub);
-        if (!decoded | !result) {
-            next(createError(301), 'invalidToken');
+        if (!result) {
+            return next(createError(301,'Token caducado'));
         }
 
         let user = await UserModel.create({ name, email: result.mail, role: result.role, password });
         if (!user) {
-            next(createError(500, 'Error al crear el usuario'));
+            return next(createError(500, 'Error al crear el usuario'));
         }
 
         let body = { _id: user._id, email: user.email };
@@ -41,8 +41,8 @@ router.get('/registro', async function (req, res, next) {
     try {
         let decoded = await jwt.verify(token, 'invite');
         let result = await TokenModel.findById(decoded.sub);
-        if (!result | !decoded) {
-            next(createError(301), 'invalidToken');
+        if (!result) {
+            return next(createError(301,'Token caducado'));
         }
         res.locals.token = token;
         res.render('signup');
