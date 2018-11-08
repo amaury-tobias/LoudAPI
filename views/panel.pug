@@ -581,7 +581,7 @@ html
                     input(type='text', name='sMagName', placeholder='Nuevo nombre')
             button.green(type='submit') Cambiar
         #I.siteTabContent
-          form(onsubmit='return validateSiteInfo()')
+          form(onsubmit='return validateSiteInfo()', action="/api/info/picture", method="post", enctype="multipart/form-data")
             table.listInput
               tbody
                 tr
