@@ -1,25 +1,23 @@
-var express = require('express');
+const express = require('express');
 const jwt = require('jsonwebtoken');
-var router = express.Router();
-
+const TokenModel = require('../models/tokenModel');
 const transporter = require('../mailer/transporter');
 const message = require('../mailer/mailMessage')
 
+var router = express.Router();
 
-router.post('/mail/send', function (req, res, next) {
-    const from = 'amaury.tobiasqr@gmail.com';
+router.post('/mail/send', async function (req, res, next) {
+    const from = 'Guía del Lago <donotreply@guiadellago.com>';
     const to = req.body.to;
     const role = req.body.iURole;
-    
-    const token = jwt.sign({ sub: to, role: role }, 'invite', { expiresIn: '1 day' });
-
-    transporter.sendMail(message(from, to, token))
-        .then(info => {
-            return res.status(200).json(info);
-        })
-        .catch(err => {
-            return res.status(500).json(err);
-        });
+    try {
+        let result = await TokenModel.create({ mail: to, role: role });
+        let token = await jwt.sign({ sub: result._id }, 'invite', { expiresIn: '1 day' });
+        let mailStatus = await transporter.sendMail(message(from, to, token));
+        res.status(200).json({ mailStatus });
+    } catch (err) {
+        next(err)
+    }
 });
 
 module.exports = router;

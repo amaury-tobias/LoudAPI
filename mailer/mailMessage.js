@@ -9,7 +9,7 @@ module.exports = function (from, to, subject) {
     return message = {
         from,
         to,
-        subject: 'Completa tu registro',
+        subject: 'Guía del Lago - Completa tu registro',
         html: htmlMailCompiled,
         attachments: [
             {

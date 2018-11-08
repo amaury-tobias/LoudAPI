@@ -28,14 +28,14 @@ router.post('/info/picture', passport.authenticate('jwt', { session: false }), u
         });
 });
 
-router.get('/info/picture/:id', function (req, res) {
-    const id = req.params.id;
-    InfoModel.findOne({ strId: id })
-        .then(image => {
-            res.contentType(image.img.contentType);
-            return res.send(image.img.data);
-        })
-        .catch(err => res.json(err))
+router.get('/info/picture/:id', async function (req, res, next) {
+    let id = req.params.id;
+    try {
+        let image = await InfoModel.findOne({ strId: id });
+        res.contentType(image.img.contentType).send(image.img.data);
+    } catch (err) {
+        next(err);
+    }
 });
 
 
