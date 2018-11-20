@@ -44,6 +44,8 @@ router.get('/registro', async function (req, res, next) {
         if (!result) {
             return next(createError(301,'Token caducado'));
         }
+        res.locals.mail = result.mail;
+        res.locals.role = result.role;
         res.locals.token = token;
         res.render('signup');
 

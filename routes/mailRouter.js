@@ -8,7 +8,7 @@ var router = express.Router();
 
 router.post('/mail/send', async function (req, res, next) {
     const from = 'Guía del Lago <amaury.tobiasqr@gmail.com>';
-    const to = req.body.to;
+    const to = req.body.iUEmail;
     const role = req.body.iURole;
     try {
         let result = await TokenModel.create({ mail: to, role: role });

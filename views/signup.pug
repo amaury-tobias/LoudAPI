@@ -4,10 +4,29 @@ html(lang="es")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title SignUP
+    link(rel='stylesheet', type='text/css', href='/Reset.css')
+    link(rel='stylesheet', type='text/css', href='/Main.css')
+    link(rel='stylesheet', type='text/css', href='/SignIn.css')
+    script(src='/SingInValidations.js')
+    title Guia del Lago - Registrarse
   body
-    h1 SignUP
-    form(action=`/api/signup?id=${token}`, method="post")
-      input(type="text", name="name", placeholder="name")
-      input(type="password", name="password", placeholder="password")
-      input(type="submit", value="Submit")
+    header
+      img(src='/api/info/picture/banner', alt='Logo', height='158px')
+    section
+      form(action=`/api/signup?id=${token}`, method='post', onsubmit='return validateForm()')
+        table.signForm
+          tbody
+            tr
+              td.first= role
+            tr
+              td= mail
+            tr
+              td.input
+                input(type='text', name='name', required='', placeholder='Nombre de usuario')
+            tr
+              td.input
+                input#password(type='password', name='password', required='', placeholder='Contraseña')
+            tr
+              td.input
+                input#password2(type='password', name='repass', required='', placeholder='Repetir contraseña')
+        button(type='submit') Crear cuenta

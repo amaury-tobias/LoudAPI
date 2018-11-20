@@ -1,11 +1,11 @@
-doctype html
-html
+<!DOCTYPE html>
+html(lang="es")
   head
     meta(charset='UTF-8')
     title Guia del Lago - Administrar
-    link(rel='stylesheet', type='text/css', href='/Reset.css')
-    link(rel='stylesheet', type='text/css', href='/Main.css')
-    link(rel='stylesheet', type='text/css', href='/Admin.css')
+    link(rel='stylesheet', type='text/css', href='../Reset.css')
+    link(rel='stylesheet', type='text/css', href='../Main.css')
+    link(rel='stylesheet', type='text/css', href='../Admin.css')
     script(src='jquery-3.3.1.js')
     script(src='/Tabs.js')
     script(src='/ToggleLoginForm.js')
@@ -17,80 +17,82 @@ html
     script(src='/SearchBar.js')
   body
     header
-      img(src='/img/Logo1.jpg', alt='Logo')
+      img(src='/api/info/picture/banner', alt='Logo')
       button#showLogin.toggleFormShow(onclick='showForm()') Sesión
       #loginForm.toggleForm
-        form.toggleFormContainer(action="/api/close")
+        form.toggleFormContainer
           button.toggleFormHide(type='button', onclick='hideForm()') Ocultar
           button.toggleFormCancel(type='submit') Cerrar
     section
-      table
+      table.mainTable
         tbody
           tr
-            td#mainDefault.mainTab(onclick="mainTab(event, 'users')") Usuarios
-            td.mainTab(onclick="mainTab(event, 'clients')") Clientes
-            td.mainTab(onclick="mainTab(event, 'site')") Sitio
+            td#mainDefault.mainTab.ini(onclick="mainTab(event, 'users')") Usuarios
+            td.mainTab.mid(onclick="mainTab(event, 'clients')") Clientes
+            td.mainTab.end(onclick="mainTab(event, 'site')") Sitio
       #users.mainTabContent
-        table
+        table.subTable
           tbody
             tr
-              td#usersDefault.usersTab(onclick="usersTab(event, 'H')") Historial
-              td.usersTab(onclick="usersTab(event, 'G')") Gestionar
-              td.usersTab(onclick="usersTab(event, 'IU')") Invitar
+              td#usersDefault.usersTab.tab.ini(onclick="usersTab(event, 'H')") Historial
+              td.usersTab.tab.mid(onclick="usersTab(event, 'G')") Gestionar
+              td.usersTab.tab.end(onclick="usersTab(event, 'IU')") Invitar
         #H.usersTabContent
-          button#showRecordOptions.white(onclick='showRecordOptions()') Opciones
+          button#showRecordOptions.green(onclick='showRecordOptions()') Opciones
           #recordOptions.options
-            button.black(onclick='hideRecordOptions()') Ocultar
+            button.black.ini(onclick='hideRecordOptions()') Ocultar
             table
               tbody
                 tr
-                  td#recordDefault.recordTab.subTab(onclick="recordTab(event, 'recordFilters')") Filtrar
-                  td.recordTab.subTab(onclick="recordTab(event, 'recordDelete')") Eliminar
+                  td#recordDefault.recordTab.subTab.ini(onclick="recordTab(event, 'recordFilters')") Filtrar
+                  td.recordTab.subTab.end.red(onclick="recordTab(event, 'recordDelete')") Eliminar
             #recordFilters.recordTabContent
               form(onsubmit='return validateRecordFilter()')
                 table.options
                   tbody
                     tr
-                      td.selectInput
+                      td.selectInput.left
                         select#rAmount(name='rAmount')
                           option(value='0') Cantidad de registros
-                          option(value='10') 10
-                          option(value='30') 30
-                          option(value='75') 75
-                          option(value='All') Todos
-                      td.selectInput
+                          option(value='10') Ver 10
+                          option(value='30') Ver 30
+                          option(value='75') Ver 75
+                          option(value='All') Ver Todos
+                      td.selectInput.right
                         select#rSort(name='rSort')
                           option(value='0') Ordenar por
                           option(value='new') Mas nuevos
                           option(value='old') Mas viejos
                     tr
-                      td.toggleInput
+                      td.toggleInput.left
                         input#rDate(type='checkbox', name='rDate', checked='')
                         label(for='rDate')
-                          | Ver fecha
-                      td.toggleInput
+                          | Mostrar fecha
+                          span.checkmark
+                      td.toggleInput.right
                         input#rUser(type='checkbox', name='rUser', checked='')
                         label(for='rUser')
-                          | Ver usuario
-                button.green(type='submit') Filtrar
+                          | Mostrar usuario
+                          span.checkmark
+                button.green.end(type='submit') Filtrar
             #recordDelete.recordTabContent
               form(onsubmit='return validateRecordDelete()')
                 table.options
                   tbody
                     tr
-                      td.selectInput
+                      td.selectInput.left.red
                         select#dAmount(name='dAmount')
                           option(value='0') Cantidad de registros
-                          option(value='10') 10
-                          option(value='30') 30
-                          option(value='75') 75
-                          option(value='All') Todos
-                      td.selectInput
+                          option(value='10') Seleccionar 10
+                          option(value='30') Seleccionar 30
+                          option(value='75') Seleccionar 75
+                          option(value='All') Seleccionar Todos
+                      td.selectInput.right.red
                         select#dSort(name='dSort')
                           option(value='0') Ordenar por
                           option(value='new') Mas nuevos
                           option(value='old') Mas viejos
-                button.red(type='submit') Eliminar
+                button.red.end(type='submit') Eliminar
           .currentText 5 / 30
           table.list
             tbody
@@ -135,29 +137,33 @@ html
                   td#gUser Nombre
                   td.selectInput
                     select(name='gUser1Role', required='')
+                      option(value='0') Rol
                       option(value='1') Rol 1
                       option(value='2') Rol 2
                       option(value='3') Rol 3
-                  td#gDelete.toggleInput.red
+                  td#gDelete.toggleInput.red.right
                     input#gUser1Delete(type='checkbox', name='gUser1Delete')
                     label(for='gUser1Delete')
                       | Eliminar
+                      span.checkmark
                 tr
                   td#gUser Nombre
                   td.selectInput
                     select(name='gUser2Role', required='')
+                      option(value='0') Rol
                       option(value='1') Rol 1
                       option(value='2') Rol 2
                       option(value='3') Rol 3
-                  td#gDelete.toggleInput.red
+                  td#gDelete.toggleInput.red.right
                     input#gUser2Delete(type='checkbox', name='gUser2Delete')
                     label(for='gUser2Delete')
                       | Eliminar
-            button.green(type='submit') Modificar
+                      span.checkmark
+            button.green.end(type='submit') Modificar
           .currentText.inside  
-          button#showManageOptions.white(onclick='showManageOptions()') Roles
+          button#showManageOptions.green(onclick='showManageOptions()') Roles
           #manageOptions.options
-            button.black(onclick='hideManageOptions()') Ocultar
+            button.black.ini(onclick='hideManageOptions()') Ocultar
             .currentText.inside 4
             table.list
               tbody
@@ -177,23 +183,23 @@ html
                   td#gRole Rol 3
                   td#gAble Menos que el administrador.
         #IU.usersTabContent
-          form(onsubmit='return validateInviteUser()', action="/api/mail/send", method="post")
+          form(onsubmit='return validateInviteUser()', action='/api/mail/send', method='post')
             table.options
               tbody
                 tr
                   td
-                    input(type='email', name='to', placeholder='Correo electronico', required='')
-                  td.selectInput
+                    input.left(type='email', name='iUEmail', placeholder='Correo electronico', required='')
+                  td.selectInput.right
                     select#iURole(name='iURole', required='')
                       option(value='0') Rol
                       option(value='1') Rol 1
                       option(value='2') Rol 2
                       option(value='3') Rol 3
-            button.green(type='submit') Invitar
+            button.green.end(type='submit') Invitar
           .currentText.inside  
-          button#showInviteOptions.white(onclick='showInviteOptions()') Roles
+          button#showInviteOptions.green(onclick='showInviteOptions()') Roles
           #inviteOptions.options
-            button.black(onclick='hideInviteOptions()') Ocultar
+            button.black.ini(onclick='hideInviteOptions()') Ocultar
             .currentText.inside 4
             table.list
               tbody
@@ -216,30 +222,30 @@ html
         table
           tbody
             tr
-              td#clientsDefault.clientsTab(onclick="clientsTab(event, 'AD')") Gestionar
-              td.clientsTab(onclick="clientsTab(event, 'AG')") Agregar
-              td.clientsTab(onclick="clientsTab(event, 'IC')") Invitar
+              td#clientsDefault.clientsTab.tab.ini(onclick="clientsTab(event, 'AD')") Gestionar
+              td.clientsTab.tab.mid(onclick="clientsTab(event, 'AG')") Agregar
+              td.clientsTab.tab.end(onclick="clientsTab(event, 'IC')") Invitar
         #AD.clientsTabContent
           button#showContractsOptions.white(onclick='showContractsOptions()') Opciones
           #contractsOptions.options
-            button.black(onclick='hideContractsOptions()') Ocultar
+            button.black.ini(onclick='hideContractsOptions()') Ocultar
             table
               tbody
                 tr
-                  td#contractsDefault.contractsTab.subTab(onclick="contractsTab(event, 'contractsFilters')") Filtrar
-                  td.contractsTab.subTab(onclick="contractsTab(event, 'contractsDelete')") Eliminar
+                  td#contractsDefault.contractsTab.subTab.ini(onclick="contractsTab(event, 'contractsFilters')") Filtrar
+                  td.contractsTab.subTab.end.red(onclick="contractsTab(event, 'contractsDelete')") Eliminar
             #contractsFilters.contractsTabContent
               form(onsubmit='return validateContractsFilter()')
                 table.options
                   tbody
                     tr
-                      td.selectInput
+                      td.selectInput.left
                         select#cZone(name='cZone')
                           option(value='0') Zona
                           option(value='1') La Fe
                           option(value='2') Huinala
                           option(value='3') Nueva Linda Vista
-                      td.selectInput
+                      td.selectInput.right
                         select#cMonth(name='cMonth')
                           option(value='0') Mes
                           option(value='1') Enero
@@ -255,27 +261,29 @@ html
                           option(value='11') Noviembre
                           option(value='12') Diciembre
                     tr
-                      td.toggleInput
+                      td.toggleInput.left
                         input#cAll(type='radio', name='cView', value='all', checked='')
                         label(for='cAll')
                           | Ver todos
-                      td.toggleInput
+                          span.radiomark
+                      td.toggleInput.right
                         input#cDebt(type='radio', name='cView', value='debt')
                         label(for='cDebt')
                           | Ver faltantes
-                button.green(type='submit') Filtrar
+                          span.radiomark
+                button.green.end(type='submit') Filtrar
             #contractsDelete.contractsTabContent
               form(onsubmit='return validateContractsDelete()')
                 table.options
                   tbody
                     tr
-                      td.selectInput
+                      td.selectInput.red.left
                         select#dZone(name='dZone')
                           option(value='0') Zona
                           option(value='1') La Fe
                           option(value='2') Huinala
                           option(value='3') Nueva Linda Vista
-                      td.selectInput
+                      td.selectInput.red.right
                         select#dMonth(name='dMonth')
                           option(value='0') Mes
                           option(value='1') Enero
@@ -290,13 +298,13 @@ html
                           option(value='10') Octubre
                           option(value='11') Noviembre
                           option(value='12') Diciembre
-                button.red(type='submit') Eliminar
+                button.red.end(type='submit') Eliminar
           .currentText Zona Mes
           table.listInput
             tbody
               tr.noBorder
                 td.input(colspan='5')
-                  input#fBuisness(type='text', placeholder='Buscar negocio')
+                  input#fBuisness.mid(type='text', placeholder='Buscar negocio')
           form
             table.listInput
               tbody
@@ -319,7 +327,7 @@ html
                   td#cData.toggleInput
                     input#cData1(type='checkbox', onclick="openModalBox('cData1', 'cData1Content')")
                     label(for='cData1')
-                      | Detalles
+                      | Ver
                   td#cPay.input
                     input#cPay1.number(type='text', name='cPay1', placeholder='00000')
                   td#cPaid
@@ -336,14 +344,16 @@ html
                               td Vendedor
                               td Usuario 1
                             tr
-                              td#cBonus.toggleInput
+                              td#cBonus.toggleInput.red
                                 input#cBonus1Val0(type='radio', name='cBonus1', value='0', checked='')
                                 label(for='cBonus1Val0')
                                   | Anticipo pendiente
+                                  span.radiomark
                               td#cBonus.toggleInput.green
                                 input#cBonus1Val1(type='radio', name='cBonus1', value='1')
                                 label(for='cBonus1Val1')
-                                  | Anticipo pagado.
+                                  | Anticipo pagado
+                                  span.radiomark
                             tr
                               td Cliente
                               td Nombre apellido
@@ -370,10 +380,12 @@ html
                                 input#cCancel1Val0(type='radio', name='cCancel1', value='0', checked='')
                                 label(for='cCancel1Val0')
                                   | Contrato activo
+                                  span.radiomark
                               td#cCancel.toggleInput.red
                                 input#cCancel1Val1(type='radio', name='cCancel1', value='1')
                                 label(for='cCancel1Val1')
                                   | Contrato cancelado
+                                  span.radiomark
                 tr
                   td#cBuisness
                     input(type='text', name='cId2', style='display: none;')
@@ -382,7 +394,7 @@ html
                   td#cData.toggleInput
                     input#cData2(type='checkbox', onclick="openModalBox('cData2', 'cData2Content')")
                     label(for='cData2')
-                      | Detalles
+                      | Ver
                   td#cPay.input
                     input#cPay2.number(type='text', name='cPay2', placeholder='00000')
                   td#cPaid
@@ -399,14 +411,16 @@ html
                               td Vendedor
                               td Usuario 2
                             tr
-                              td#cBonus.toggleInput
+                              td#cBonus.toggleInput.red
                                 input#cBonus2Val0(type='radio', name='cBonus2', value='0', checked='')
                                 label(for='cBonus2Val0')
                                   | Anticipo pendiente
+                                  span.radiomark
                               td#cBonus.toggleInput.green
                                 input#cBonus2Val1(type='radio', name='cBonus2', value='1')
                                 label(for='cBonus2Val1')
-                                  | Anticipo pagado.
+                                  | Anticipo pagado
+                                  span.radiomark
                             tr
                               td Cliente
                               td Nombre2 apellido2
@@ -433,17 +447,19 @@ html
                                 input#cCancel2Val0(type='radio', name='cCancel2', value='0', checked='')
                                 label(for='cCancel2Val0')
                                   | Contrato activo
+                                  span.radiomark
                               td#cCancel.toggleInput.red
                                 input#cCancel2Val1(type='radio', name='cCancel2', value='1')
                                 label(for='cCancel2Val1')
                                   | Contrato cancelado
+                                  span.radiomark
                 tr
                   td#cBuisness X negocios totales
                   td#cData  
                   td#cPay  
                   td#cPaid 000000
                   td#cLeft 000000
-            button.green(type='submit') Modificar
+            button.green.end(type='submit') Modificar
         #AG.clientsTabContent
           form(onsubmit='return validateAddClient()')
             table.listInput
@@ -454,11 +470,11 @@ html
                   td
                     | Negocio
                   td.input
-                    input(type='text', name='buisness', placeholder='Nombre', required='')
+                    input.right(type='text', name='buisness', placeholder='Nombre', required='')
                 tr
                   td
                     | Zona
-                  td.selectInput
+                  td.selectInput.right
                     select#zone(name='zone', required='')
                       option(value='0') Zona
                       option(value='1') La Fe
@@ -467,7 +483,7 @@ html
                 tr
                   td
                     | Mes inicial
-                  td.selectInput
+                  td.selectInput.right
                     select#iMonth(name='iMonth', required='')
                       option(value='0') Mes
                       option(value='1') Enero
@@ -485,7 +501,7 @@ html
                 tr
                   td
                     | Meses
-                  td.selectInput
+                  td.selectInput.right
                     select#mNumber(name='mNumber')
                       option(value='0') 0
                       option(value='1') 1
@@ -494,38 +510,38 @@ html
                   td
                     | Precio total
                   td.input
-                    input.number(type='text', name='total', placeholder='0000', required='')
+                    input.number.right(type='text', name='total', placeholder='0000', required='')
                 tr
                   td
                     | Vendedor
-                  td.selectInput
+                  td.selectInput.right
                     select#seller(name='seller')
                       option(value='0') Usuario
                       option(value='1') Usuario 1
                       option(value='2') Usuario 2
                       option(value='3') Usuario 3
                       option(value='4') Usuario 4
-                tr
+                tr.nohover
                   th(colspan='2') Opcionales
                 tr
                   td
                     | Cliente
                   td.input
-                    input(type='text', name='client', placeholder='Nombre')
+                    input.right(type='text', name='client', placeholder='Nombre')
                 tr
                   td
                     | Dirección
                   td.input
-                    input(type='text', name='dir', placeholder='Lugar')
+                    input.right(type='text', name='dir', placeholder='Lugar')
                 tr
                   td
                     | Teléfono
                   td.input
-                    input.number(type='text', name='tel', placeholder='00000000')
+                    input.number.right(type='text', name='tel', placeholder='00000000')
                 tr
                   td
                     | Espacio
-                  td.selectInput
+                  td.selectInput.right
                     select(name='space')
                       option(value='0') Espacio
                       option(value='1') Portada
@@ -538,81 +554,87 @@ html
                   td
                     | Folio
                   td.input
-                    input.number(type='text', name='pNumber', placeholder='0000')
-            button.green(type='submit') Agregar
+                    input.number.right(type='text', name='pNumber', placeholder='0000')
+            button.green.end(type='submit') Agregar
         #IC.clientsTabContent
           form
             table.options
               tbody
                 tr
                   td
-                    input(type='email', name='iCEmail', placeholder='Correo electronico', required='')
-            button.green(type='submit') Invitar
+                    input.mid(type='email', name='iCEmail', placeholder='Correo electronico', required='')
+            button.green.end(type='submit') Invitar
       #site.mainTabContent
         table
           tbody
             tr
-              td#siteDefault.siteTab(onclick="siteTab(event, 'R')") Revistas
-              td.siteTab(onclick="siteTab(event, 'I')") Informacion
-              td.siteTab(onclick="siteTab(event, 'C')") Correos
+              td#siteDefault.siteTab.tab.ini(onclick="siteTab(event, 'R')") Revistas
+              td.siteTab.tab.mid(onclick="siteTab(event, 'I')") Informacion
+              td.siteTab.tab.end(onclick="siteTab(event, 'C')") Correos
         #R.siteTabContent
           form(onsubmit='return validateSiteMags()')
             table.listInput
               tbody
                 tr
-                  td.toggleInput
+                  td.toggleInput.left
                     input#sZone1(type='radio', name='zone', value='1', checked='', required='')
                     label(for='sZone1')
                       | La Fe
+                      span.radiomark
                   td.toggleInput
                     input#sZone2(type='radio', name='zone', value='2', required='')
                     label(for='sZone2')
                       | Huinala
-                  td.toggleInput
+                      span.radiomark
+                  td.toggleInput.right
                     input#sZone3(type='radio', name='zone', value='3', required='')
                     label(for='sZone3')
                       | Nueva Linda Vista
+                      span.radiomark
                 tr
                   td.input(colspan='3')
                     input#sImgs.fileInput(type='file', name='sImgs', accept='image/*', data-multiple-caption='total imagenes nuevas', multiple='')
                     label(for='sImgs') Nuevas imagenes
                 tr
                   td.input(colspan='3')
-                    input(type='text', name='sMagName', placeholder='Nuevo nombre')
-            button.green(type='submit') Cambiar
+                    input.mid(type='text', name='sMagName', placeholder='Nuevo nombre')
+            button.green.end(type='submit') Cambiar
         #I.siteTabContent
-          form(onsubmit='return validateSiteInfo()', action="/api/info/picture", method="post", enctype="multipart/form-data")
+          form(action='/api/info/picture' ,onsubmit='return validateSiteInfo()', method='post', enctype='multipart/form-data')
             table.listInput
               tbody
                 tr
-                  td.toggleInput
+                  td.toggleInput.left
                     input#sBanner(type='radio', name='option', value='banner', checked='', required='')
                     label(for='sBanner')
                       | Portada
+                      span.radiomark
                   td.toggleInput
                     input#sPrices(type='radio', name='option', value='prices', required='')
                     label(for='sPrices')
                       | Precios
-                  td.toggleInput
+                      span.radiomark
+                  td.toggleInput.right
                     input#sZones(type='radio', name='option', value='zones', required='')
                     label(for='sZones')
                       | Zonas
+                      span.radiomark
                 tr
                   td.input(colspan='3')
                     input#sInfo.fileInput(type='file', name='sInfo', accept='image/*')
                     label(for='sInfo') Nueva imagen
-            button.green(type='submit') Cambiar
+            button.green.end(type='submit') Cambiar
         #C.siteTabContent
-          button#showTemplate1Options.white(onclick='showTemplate1Options()') Plantilla para clientes
+          button#showTemplate1Options.green(onclick='showTemplate1Options()') Plantilla para clientes
           #template1Options.options
-            button.black(onclick='hideTemplate1Options()') Ocultar
+            button.black.ini(onclick='hideTemplate1Options()') Ocultar
             form
               table.listInput
                 tbody
                   tr
                     td.input
                       input#t1Logo.fileInput(type='file', name='t1Logo', accept='image/*')
-                      label(for='t1Logo') Nuevo imagen inicial
+                      label(for='t1Logo') Nueva imagen inicial
                   tr
                     td.input
                       textarea(name='t1Msg', placeholder='Nuevo mensaje')
@@ -620,22 +642,22 @@ html
                     td.input
                       input#t1Info.fileInput(type='file', name='t1Info', accept='image/*')
                       label(for='t1Info') Nueva imagen final
-              button.green(type='submit') Modificar
+              button.green.end(type='submit') Modificar
           .currentText.inside  
-          button#showTemplate2Options.white(onclick='showTemplate2Options()') Plantilla para usuarios
+          button#showTemplate2Options.green(onclick='showTemplate2Options()') Plantilla para usuarios
           #template2Options.options
-            button.black(onclick='hideTemplate2Options()') Ocultar
+            button.black.ini(onclick='hideTemplate2Options()') Ocultar
             form
               table.listInput
                 tbody
                   tr
                     td.input
                       input#t2Logo.fileInput(type='file', name='t2Logo', accept='image/*')
-                      label(for='t2Logo') Nuevo imagen inicial
+                      label(for='t2Logo') Nueva imagen inicial
                   tr
                     td.input
                       textarea(name='t2Msg', placeholder='Nuevo mensaje')
-              button.green(type='submit') Modificar
+              button.green.end(type='submit') Modificar
       script.
         document.getElementById("mainDefault").click();
         document.getElementById("usersDefault").click();
