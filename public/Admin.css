@@ -5,8 +5,21 @@
 .subTab
 {    
     font-size: 20px;
-    padding: 15px;
-    border-bottom: 3px solid #2c1a6c;
+    padding: 15px;        
+    border-top: solid 3px;
+    border-bottom: solid 3px;
+}
+.subTab.ini
+{
+    border-left: solid 3px;
+}
+.subTab.end
+{
+    border-right: solid 3px;
+}
+.subTab.active.red
+{
+    background-color: #d42b2b;
 }
 
 
@@ -18,12 +31,27 @@ div.options
 table.options th
 {
     padding: 15px;
-    font-weight: normal;
-    
+    font-weight: normal;    
 }
 table.options td
 {
     padding: 0px;      
+}
+
+
+
+.toggleInput.left label
+{
+    border-left: solid 3px;
+}
+.toggleInput.right label
+{
+    border-right: solid 3px;
+}
+.toggleInput.red label .checkmark:after 
+{
+    border: solid #d42b2b;
+    border-width: 0 3px 3px 0;
 }
 
 
@@ -39,13 +67,37 @@ table.options td
 }
 .selectInputSelected
 {
-    background-color: rgba(255, 255, 255, 1);   
-    color: #8daa79;     
-    height: 100%;
+    color: rgba(255, 255, 255, 1);   
+    background-color: #8daa79;     
+    height: 100%;    
 }
-.selectInputSelected:hover
+.selectInput.red .selectInputSelected
 {
-    /*background-color: rgba(204, 204, 204, 1);  */
+    background-color: #d42b2b;
+}
+.selectInput.left .selectInputSelected
+{
+    border-left: solid 3px;
+}
+.selectInput.right .selectInputSelected
+{
+    border-right: solid 3px;
+}
+.selectInputSelected:after 
+{
+    position: absolute;
+    content: "";
+    top: 20px;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+.selectInputSelected.dropArrow:after 
+{
+    border-color: transparent transparent #fff transparent;
+    top: 10px;
 }
 .selectInputSelected, .selectInputList div
 {      
@@ -55,19 +107,36 @@ table.options td
     user-select: none;
     transition: 0.3s;
 }
+.selectInputList div:last-child
+{
+    border-radius: 0px 0px 30px 30px;
+    border-bottom: solid 3px;
+}
+.selectInputList div
+{
+    border-right: solid 3px;
+    border-left: solid 3px;
+}
 .selectInputList 
 {
     position: absolute;
-    background-color: rgba(204, 204, 204, 1); 
+    background-color: rgba(255, 255, 255, 1); 
     box-shadow: 0px 10px 30px 5px rgba(0,0,0,0.5);
     top: 100%;
     left: 0;
     right: 0;
     z-index: 99;
+    animation: fadeFx 0.3s;
+    border-radius: 0px 0px 30px 30px;    
 }
 .selectInputList div:hover
 {
-    background-color: rgba(255, 255, 255, 1);    
+    color: rgba(255, 255, 255, 1); 
+    background-color: #8daa79;
+}
+.selectInput.red .selectInputList div:hover
+{
+    background-color: #d42b2b;
 }
 .selectInputHide
 {
@@ -76,35 +145,46 @@ table.options td
 
 
 
-button
+section button
 {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 1);
     padding: 15px;
-    border: none;
     font-size: 20px;
     color: #2c1a6c;
     width: 100%;
     transition: 0.3s;    
+    border-radius: 30px;
+    border: solid 3px;
 }
-button:focus
+section button.ini
+{
+    border-radius: 30px 30px 0px 0px;
+    border-bottom: none;
+}
+section button.end
+{
+    border-radius: 0px 0px 30px 30px;
+    border-top: none;
+}
+section button:focus
 {
     outline: none;
 }
-button.white:hover
+section button.white:hover
 {
     background-color: rgba(255, 255, 255, 1);  
 }
-button.black:hover
+section button.black:hover
 {
     background-color: rgba(0, 0, 0, 1);  
     color: white;
 }
-button.green:hover
+section button.green:hover
 {
     background-color: #8daa79;
     color: white;
 }
-button.red:hover
+section button.red:hover
 {
     background-color: #d42b2b;
     color: white;
@@ -119,9 +199,32 @@ td input[type=email], td input[type=text]
     font-size: 20px;
     text-align: center;
     border: none;
-    background-color: rgba(255, 255, 255, 1.0);
-    color: #8daa79;
+    background-color: rgba(255, 255, 255, 1.0);    
     transition: 0.3s;
+}
+td input[type=email]:focus, td input[type=text]:focus
+{
+    color: rgba(255, 255, 255, 1.0);
+    background-color: #8daa79;
+}
+td input[type=text].mid
+{
+    border-left: 3px solid;
+    border-right: 3px solid;
+}
+td input[type=text].right
+{
+    border-right: 3px solid;
+    border-left: none;
+}
+td input[type=email].left
+{
+    border-left: 3px solid;
+}
+td input[type=email].mid
+{
+    border-left: 3px solid;
+    border-right: 3px solid;
 }
 td input[type=email]:focus, td input[type=text]:focus
 {   
@@ -140,6 +243,44 @@ td input[type=email]:focus, td input[type=text]:focus
     background-color: #8daa79;
     color: white;
 }
+.radiomark 
+{
+    position: absolute;
+    top: 13px;    
+    left: 13px;
+    height: 25px;
+    width: 25px;
+    background-color: #2c1a6c;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+.toggleInput input:checked ~ label .radiomark 
+{
+    background-color: white;
+}
+.radiomark:after 
+{
+    content: "";
+    position: absolute;
+    display: none;    
+}
+.toggleInput input:checked ~ label .radiomark:after 
+{
+    display: block;
+}
+.toggleInput label .radiomark:after 
+{
+ 	top: 5px;
+	left: 5px;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+    background-color: #8daa79;
+}
+.toggleInput.red label .radiomark:after 
+{
+    background-color: #d42b2b;
+}
 
 
 
@@ -154,12 +295,14 @@ td input[type=email]:focus, td input[type=text]:focus
 }
 .fileInput + label 
 {        
-    color: #8daa79;
-    background-color: white;    
+    background-color: #8daa79;
+    color: white;    
     padding: 15px;
     width: 100%;
     height: 100%;
     display: block;
+    border-left: 3px solid;
+    border-right: 3px solid;
 }
 .fileInput + label:hover 
 {
@@ -171,14 +314,21 @@ td input[type=email]:focus, td input[type=text]:focus
 .input textarea
 {
     display: block;
-    font-size: 20px;
-    color: #8daa79;
+    font-size: 20px;    
     width: 100%;
     height: 106px;
     outline: none;
-    border: none;
+    border-left: 3px solid;
+    border-right: 3px solid;
+    border-top: none;
+    border-bottom: none;
     padding: 15px;
     resize: none;
+}
+.input textarea:focus
+{
+    background-color: #8daa79;
+    color: white;
 }
 
 
@@ -200,7 +350,7 @@ td input[type=email]:focus, td input[type=text]:focus
     border-bottom: 3px solid rgba(255,255,255,0.5);
     transition: 0.3s;
 }
-.list tr:not(:first-child):hover
+.list tr:hover, .listInput tr:hover
 {
     background-color: rgba(255,255,255,0.5);
 }
@@ -214,23 +364,14 @@ td input[type=email]:focus, td input[type=text]:focus
     font-weight: normal;
     word-wrap: break-word;    
 }
-.list td:hover
+.list td:hover, .listInput td:hover:not(.toggleInput)
 {
     background-color: rgba(255,255,255,0);
     cursor: default;    
 }
-.listInput td:hover
-{    
-    background-color: rgba(255,255,255,0);
-    cursor: default;  
-}
 .listInput td.selectInput, .listInput td.toggleInput, .listInput td.input
 {
     padding: 0px;
-}
-.listInput td.toggleInput:hover
-{
-    background-color: rgba(255,255,255,0.5);
 }
 #hDate, #gRole
 {

@@ -13,7 +13,7 @@ html(lang="es")
     title Guia del Lago
   body
     header
-      img(src="/api/info/picture/banner", alt="BANNER", srcset="")
+      img(src="/api/info/picture/banner", alt="BANNER")
       if (!user)
         button#showLogin.toggleFormShow(onclick="showForm()") Sesión
       else
@@ -26,13 +26,14 @@ html(lang="es")
           .toggleInput
             input#remember(type="checkbox", name="remember")
             label(for="remember") Recordarme
+              span.checkmark
           button.toggleFormSubmit(type="submit") Iniciar
 
     section
-      table
+      table.mainTable
         tr
-          td#mainDefault.mainTab(onclick="mainTab(event, 'mags')") Revistas
-          td.mainTab(onclick="mainTab(event, 'info')") Información
+          td#mainDefault.mainTab.ini(onclick="mainTab(event, 'mags')") Revistas
+          td.mainTab.end(onclick="mainTab(event, 'info')") Información
 
       #mags.mainTabContent
         table

@@ -1,7 +1,9 @@
 const express = require('express');
-const router = express.Router();
+const createError = require('http-errors');
 const ImageModel = require('../models/imageModel');
 const passport = require('passport');
+
+const router = express.Router();
 
 router.get('/', function (req, res, next) {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
@@ -36,8 +38,13 @@ router.get('/', function (req, res, next) {
   })(req, res)
 });
 
-router.get('/panel', passport.authenticate('jwt', { session: false }), function (req, res, next) {
-  return res.render('panel');
+router.get('/panel', function (req, res, next) {
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    if (!user) {
+      return next(createError(401, 'No auth token'));
+    }
+    return res.render('panel');
+  })(req, res)
 });
 
 module.exports = router;

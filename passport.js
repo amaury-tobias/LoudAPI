@@ -32,7 +32,7 @@ var cookieExtractor = function (req) {
 passport.use(new JWTStrategy({
     secretOrKey: 'GuiaDelLago',
     jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor])
-}, async function (jwtPayload, done) {
+}, async function (jwtPayload, done) {    
     try {
         const user = await UserModel.findOne({ _id: jwtPayload.user._id });
         return done(null, user);

@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-html(lang="es")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        title= message
-    body
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= message
+    // Google font
+    link(href='https://fonts.googleapis.com/css?family=Fredoka+One', rel='stylesheet')
+    link(href='https://fonts.googleapis.com/css?family=Raleway:400,700', rel='stylesheet')
+    link(type='text/css', rel='stylesheet', href='/error.css')
+  body
+    #notfound
+      .notfound
+        .notfound-404
+          h1= status
+        h2= message
         pre= error
+        a(href='/')
+          span.arrow
+          | Return To Homepage
+  // This templates was made by Colorlib (https://colorlib.com)
