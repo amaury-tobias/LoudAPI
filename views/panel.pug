@@ -20,7 +20,7 @@ html(lang="es")
       img(src='/api/info/picture/banner', alt='Logo')
       button#showLogin.toggleFormShow(onclick='showForm()') Sesión
       #loginForm.toggleForm
-        form.toggleFormContainer
+        form.toggleFormContainer(action='/api/close')
           button.toggleFormHide(type='button', onclick='hideForm()') Ocultar
           button.toggleFormCancel(type='submit') Cerrar
     section
