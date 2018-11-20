@@ -18,6 +18,7 @@ const infoImageRouter = require('./routes/infoImageRouter');
 var dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/loud';
 
 mongoose.connect(dbURL, { useNewUrlParser: true });
+mongoose.set('useCreateIndex', true);
 mongoose.connection.on('error', error => console.log(error));
 
 var app = express();
