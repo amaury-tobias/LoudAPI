@@ -18,7 +18,7 @@ router.post('/signup', async function (req, res, next) {
         let decoded = await jwt.verify(token, 'invite');
         let result = await TokenModel.findByIdAndDelete(decoded.sub);
         if (!result) {
-            return next(createError(301,'Token caducado'));
+            return next(createError(401,'Token Invalido'));
         }
 
         let user = await UserModel.create({ name, email: result.mail, role: result.role, password });
@@ -32,7 +32,7 @@ router.post('/signup', async function (req, res, next) {
         res.redirect('/');
 
     } catch (err) {
-        next(err);
+        next(createError(401, err.message));
     }
 });
 
@@ -42,7 +42,7 @@ router.get('/registro', async function (req, res, next) {
         let decoded = await jwt.verify(token, 'invite');
         let result = await TokenModel.findById(decoded.sub);
         if (!result) {
-            return next(createError(301,'Token caducado'));
+            return next(createError(401,'Token Invalido'));
         }
         res.locals.mail = result.mail;
         res.locals.role = result.role;
@@ -50,7 +50,7 @@ router.get('/registro', async function (req, res, next) {
         res.render('signup');
 
     } catch (err) {
-        next(err);
+        next(createError(401, 'Token Invalido'));
     }
 });
 
