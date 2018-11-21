@@ -102,26 +102,25 @@ html(lang="es")
                 th#hAction Acción
               tr
                 td#hDate 31/12/2099 23:59
-                td#hUser Nombre
+                td#hUser Nombre1
                 td#hAction Cambios de cliente.
               tr
                 td#hDate 31/12/2099 23:59
-                td#hUser Nombre
+                td#hUser Nombre2
                 td#hAction Cambios de cliente.
               tr
                 td#hDate 31/12/2099 23:59
-                td#hUser Nombre
+                td#hUser Nombre3
                 td#hAction Cambios de cliente.
               tr
                 td#hDate 31/12/2099 23:59
-                td#hUser Nombre
+                td#hUser Nombre4
                 td#hAction Cambios de cliente.
               tr
                 td#hDate 31/12/2099 23:59
-                td#hUser Nombre
+                td#hUser Nombre5
                 td#hAction Cambios de cliente.
         #G.usersTabContent
-          .currentText 3
           form
             table.listInput
               tbody
@@ -572,7 +571,7 @@ html(lang="es")
               td.siteTab.tab.mid(onclick="siteTab(event, 'I')") Informacion
               td.siteTab.tab.end(onclick="siteTab(event, 'C')") Correos
         #R.siteTabContent
-          form(onsubmit='return validateSiteMags()')
+          form(onsubmit='return validateSiteMags()', action='/api/pictures', method='post', enctype='multipart/form-data')
             table.listInput
               tbody
                 tr

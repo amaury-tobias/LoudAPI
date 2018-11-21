@@ -1,6 +1,7 @@
 const express = require('express');
 const createError = require('http-errors');
 const ImageModel = require('../models/imageModel');
+const UserModel = require('../models/usermodel');
 const passport = require('passport');
 
 const router = express.Router();
@@ -8,7 +9,7 @@ const router = express.Router();
 router.get('/', function (req, res, next) {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
 
-    ImageModel.find().sort({ zone: 1, page: 1 })
+    ImageModel.find().sort({ zone: 1 })
       .then(images => {
         var zone1 = [], zone2 = [], zone3 = [];
         images.forEach(result => {
@@ -38,13 +39,16 @@ router.get('/', function (req, res, next) {
   })(req, res)
 });
 
-router.get('/panel', function (req, res, next) {
-  passport.authenticate('jwt', { session: false }, (err, user, info) => {
-    if (!user) {
-      return next(createError(401, 'No auth token'));
-    }
+router.get('/panel', passport.authenticate('jwt', { session: false }), async function (req, res, next) {
+  if (!req.user)
+    return next(createError(401, 'No auth token'));
+  try {
+    res.locals.users = await UserModel.find().sort();
     return res.render('panel');
-  })(req, res)
+  } catch (error) {
+    next(error);
+  }
+
 });
 
 module.exports = router;

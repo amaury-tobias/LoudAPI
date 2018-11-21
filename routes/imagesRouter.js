@@ -5,29 +5,30 @@ const multer = require('multer');
 const ImageModel = require('../models/imageModel');
 const passport = require('passport');
 
-const upload = multer({ dest: 'uploads/' });
+const storage = multer.memoryStorage();
+const upload = multer(storage);
 
-router.post('/picture', passport.authenticate('jwt', { session: false }), upload.single('img'), function (req, res) {
-    const zone = req.body.zone
-    const page = req.body.page
-
-    ImageModel.findOneAndDelete({ zone: zone, page: page })
-        .then(result => {
-            var newPic = new ImageModel();
-            ImageModel
-            if (result != null) {
-                newPic._id = result._id;
-            }
-            newPic.zone = zone;
-            newPic.page = page;
-            newPic.img.data = fs.readFileSync(req.file.path);
-            newPic.img.contentType = req.file.mimetype;
-            newPic.save();
-            return res.status(200).json({ id: newPic._id });
-        })
-        .catch(err => {
-            return res.json(err);
-        });
+router.post('/pictures', passport.authenticate('jwt', { session: false }), upload.any(), async function (req, res, next) {
+    const zone = req.body.zone;
+    const zoneName = req.body.sMagName;
+    try {
+        let result = await ImageModel.deleteMany({ zone });
+        if (result) {
+            var page = 1;
+            req.files.forEach(element => {
+                var newPic = new ImageModel();
+                newPic.zone = zone;
+                newPic.page = page;
+                newPic.img.data = element.buffer;
+                newPic.img.contentType = element.mimetype;
+                newPic.save();
+                page ++;
+            });
+            res.status(200).render('panel');
+        }
+    } catch (error) {
+        next(error);
+    }
 });
 
 router.get('/picture/:id', async function (req, res, next) {
