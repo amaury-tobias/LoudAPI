@@ -269,17 +269,25 @@ html(lang="es")
                   th#cPay Cobrar
                   th#cPaid Cobrado
                   th#cLeft Faltante
-
-                tr
-                  td#cBuisness
-                    input(type='text', name='cId1', style='display: none;')
-                    .bName Nombre Olov
-                  td#cData.toggleInput
-                    input#cData1.uncheck(type='checkbox', 
-                      onclick="openModalBox('cData1', 'cDataContent', true, 'popo', false, 'popo', 'popo', 'popo', 'popo', 'popo', 'popo', 'popo', 2)")
-                    label(for='cData1') Editar
-                  td#cPaid 00000
-                  td#cLeft 00000
+                
+                each contrato, index in contratos
+                  tr
+                    td#cBuisness
+                      input(type='text', name='cId1', style='display: none;')
+                      .bName=contrato.nombreNegocio
+                    td#cData.toggleInput
+                      input#cData1.uncheck(type='checkbox', 
+                      onclick=`openModalBox(
+                        'cData1', 'cDataContent', 
+                        ${contrato.active}, '${contrato.contratista}', ${contrato.anticipo},
+                        '${contrato.cliente}', '${contrato.direccionNegocio}', 
+                        '${contrato.telefonoNegocio}', '${contrato.folio}',
+                        '${contrato.meses}', '${contrato.espacio}',
+                        '${contrato.total}', '${contrato._id}')`)
+                      label(for='cData1') Editar
+                    td#cPaid 000.00
+                    td#cLeft 000.00
+                    td 000.00
 
                 tr.noBorder
                   td(style='padding: 0px;')
@@ -341,7 +349,7 @@ html(lang="es")
                                 button.green.end.right(type='submit') Modificar
                               
         #AG.clientsTabContent
-          form(onsubmit='return validateAddClient()')
+          form(onsubmit='return validateAddClient()', action='/api/contrato', method='post')
             table.listInput
               tbody
                 tr
@@ -357,27 +365,27 @@ html(lang="es")
                   td.selectInput.right
                     select#zone(name='zone', required='')
                       option(value='0') Zona
-                      option(value='1') La Fe
-                      option(value='2') Huinala
-                      option(value='3') Nueva Linda Vista
+                      option(value='La Fe') La Fe
+                      option(value='Huinala') Huinala
+                      option(value='Nueva Linda Vista') Nueva Linda Vista
                 tr
                   td
                     | Mes inicial
                   td.selectInput.right
                     select#iMonth(name='iMonth', required='')
                       option(value='0') Mes
-                      option(value='1') Enero
-                      option(value='2') Febrero
-                      option(value='3') Marzo
-                      option(value='4') Abril
-                      option(value='5') Mayo
-                      option(value='6') Junio
-                      option(value='7') Julio
-                      option(value='8') Agosto
-                      option(value='9') Septiembre
-                      option(value='10') Octubre
-                      option(value='11') Noviembre
-                      option(value='12') Diciembre
+                      option(value='Enero') Enero
+                      option(value='Febrero') Febrero
+                      option(value='Marzo') Marzo
+                      option(value='Abril') Abril
+                      option(value='Mayo') Mayo
+                      option(value='Junio') Junio
+                      option(value='Julio') Julio
+                      option(value='Agosto') Agosto
+                      option(value='Septiembre') Septiembre
+                      option(value='Octubre') Octubre
+                      option(value='Noviembre') Noviembre
+                      option(value='Diciembre') Diciembre
                 tr
                   td
                     | Meses
@@ -393,14 +401,12 @@ html(lang="es")
                     input.number.right(type='text', name='total', placeholder='0000', required='')
                 tr
                   td
-                    | Vendedor
+                    | Vendedor                
                   td.selectInput.right
                     select#seller(name='seller')
-                      option(value='0') Usuario
-                      option(value='1') Usuario 1
-                      option(value='2') Usuario 2
-                      option(value='3') Usuario 3
-                      option(value='4') Usuario 4
+                      option(value="0") Vendedor
+                      each user, index in users
+                        option(value=`${user.name}`)= user.name
                 tr.nohover
                   th(colspan='2') Opcionales
                 tr
@@ -424,12 +430,12 @@ html(lang="es")
                   td.selectInput.right
                     select(name='space')
                       option(value='0') Espacio
-                      option(value='1') Portada
-                      option(value='2') Contraportada
-                      option(value='3') Pagina completa
-                      option(value='4') Media pagina
-                      option(value='5') Cuarto de pagina
-                      option(value='6') Octavo de pagina
+                      option(value='Portada') Portada
+                      option(value='Contraportada') Contraportada
+                      option(value='Pagina completa') Pagina completa
+                      option(value='Media pagina') Media pagina
+                      option(value='Cuarto de pagina') Cuarto de pagina
+                      option(value='Octavo de pagina') Octavo de pagina
                 tr
                   td
                     | Folio

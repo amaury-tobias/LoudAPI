@@ -2,6 +2,8 @@ const express = require('express');
 const createError = require('http-errors');
 const ImageModel = require('../models/imageModel');
 const UserModel = require('../models/usermodel');
+const ContractModel = require('../models/contractModel');
+
 const passport = require('passport');
 
 const router = express.Router();
@@ -45,6 +47,7 @@ router.get('/panel', passport.authenticate('jwt', { session: false }), async fun
   try {
     res.locals.user = req.user;
     res.locals.users = await UserModel.find().sort();
+    res.locals.contratos = await ContractModel.find().sort();
     return res.render('panel');
   } catch (error) {
     next(error);

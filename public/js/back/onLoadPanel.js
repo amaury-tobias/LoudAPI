@@ -7,6 +7,7 @@ $(document).ready(function () {
     });
     request.done(function (data) {
         console.log(data);
+        
     });
     request.fail(function (err) {
         console.log(err);
