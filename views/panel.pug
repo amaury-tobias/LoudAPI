@@ -29,9 +29,15 @@ html(lang="es")
       table.mainTable
         tbody
           tr
-            td#mainDefault.mainTab.ini(onclick="mainTab(event, 'users')") Usuarios
-            td.mainTab.mid(onclick="mainTab(event, 'clients')") Clientes
-            td.mainTab.end(onclick="mainTab(event, 'site')") Sitio
+            if (user.role == 'admin' || user.role == 'rrhh')
+              td#mainDefault.mainTab.ini(onclick="mainTab(event, 'users')") Usuarios
+            if (user.role == 'admin')
+              td.mainTab.mid(onclick="mainTab(event, 'clients')") Clientes
+            if (user.role == 'rrhh')
+              td.mainTab.end(onclick="mainTab(event, 'clients')") Clientes
+
+            if (user.role == 'admin' || user.role == 'ic')
+              td.mainTab.mid(onclick="mainTab(event, 'site')") Sitio
       #users.mainTabContent
         table.subTable
           tbody
@@ -276,16 +282,19 @@ html(lang="es")
                     td#cBuisness
                       input(type='text', name='cId1', style='display: none;')
                       .bName=contrato.nombreNegocio
-                    td#cData.toggleInput
-                      input#cData1.uncheck(type='checkbox', 
-                      onclick=`openModalBox(
-                        'cData1', 'cDataContent', 
-                        ${contrato.active}, '${contrato.contratista}', ${contrato.anticipo},
-                        '${contrato.cliente}', '${contrato.direccionNegocio}', 
-                        '${contrato.telefonoNegocio}', '${contrato.folio}',
-                        '${contrato.meses}', '${contrato.espacio}',
-                        '${contrato.total}', '${contrato._id}')`)
-                      label(for='cData1') Editar
+                    if (user.role == 'admin')
+                      td#cData.toggleInput
+                        input#cData1.uncheck(type='checkbox', 
+                        onclick=`openModalBox(
+                          'cData1', 'cDataContent', 
+                          ${contrato.active}, '${contrato.contratista}', ${contrato.anticipo},
+                          '${contrato.cliente}', '${contrato.direccionNegocio}', 
+                          '${contrato.telefonoNegocio}', '${contrato.folio}',
+                          '${contrato.meses}', '${contrato.espacio}',
+                          '${contrato.total}', '${contrato._id}')`)
+                        label(for='cData1') Editar
+                    else
+                      td#cData.toggleInput No autorizado
                     td#cPaid= contrato.total
                     td#cLeft= contrato.cobrado
                     td= (contrato.total - contrato.cobrado)
