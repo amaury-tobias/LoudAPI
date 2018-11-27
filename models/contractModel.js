@@ -40,7 +40,8 @@ var ContractSchema = new Schema({
         default: true
     },
     cobrado: {
-        type: Number
+        type: Number,
+        default: 0
     },
     anticipo: {
         type: Boolean,

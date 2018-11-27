@@ -35,6 +35,21 @@ router.post('/contrato', function (req, res, next) {
         .catch(err => {
             next(err);
         });
-})
+});
+
+router.post('/contrato/update', async function (req, res, next) {
+    let id = req.body.cId;
+    let status = req.body.cCancel != 0 ? false : true;
+    let anticipo = req.body.cBonus != 0 ? true : false;
+    var cobrar = parseInt(req.body.cPay != 0 ? req.body.cPay : 0);
+    try {
+        let oldContract = await ContractModel.findById(id);
+        cobrar += oldContract.cobrado;
+        let updatedContract = await ContractModel.findByIdAndUpdate(id, { active: status, anticipo: anticipo, cobrado: cobrar });
+        return res.status(200).redirect('/panel');
+    } catch (error) {
+        next();
+    }
+});
 
 module.exports = router;

@@ -48,8 +48,6 @@ app.use('/api', authRouter);
 app.use('/api', infoImageRouter);
 app.use('/api', imagesRouter);
 
-app.use('/test', contractRouter);
-
 app.use('/api', passport.authenticate('jwt', { session: false }), usersRouter);
 
 app.use('/api', passport.authenticate('jwt', { session: false }), mailRouter);

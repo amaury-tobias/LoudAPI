@@ -93,7 +93,7 @@ html(lang="es")
                           option(value='new') Mas nuevos
                           option(value='old') Mas viejos
                 button.red.end(type='submit') Eliminar
-          .currentText 5 / 30
+          
           table.list
             tbody
               tr
@@ -286,14 +286,15 @@ html(lang="es")
                         '${contrato.meses}', '${contrato.espacio}',
                         '${contrato.total}', '${contrato._id}')`)
                       label(for='cData1') Editar
-                    td#cPaid 000.00
-                    td#cLeft 000.00
-                    td 000.00
+                    td#cPaid= contrato.total
+                    td#cLeft= contrato.cobrado
+                    td= (contrato.total - contrato.cobrado)
 
                 tr.noBorder
                   td(style='padding: 0px;')
                     #cDataContent.modal
-                      form
+                      form(method='post', action='/api/contrato/update')
+                        input(type="hidden" name="_METHOD" value="PUT")
                         .modalContent
                           table.listInput
                             input#ModalId(type='text', name='cId', style='display: none;')
