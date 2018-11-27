@@ -18,7 +18,7 @@ router.post('/signup', async function (req, res, next) {
         let decoded = await jwt.verify(token, 'invite');
         let result = await TokenModel.findByIdAndDelete(decoded.sub);
         if (!result) {
-            return next(createError(401,'Token Invalido'));
+            return next(createError(401, 'Token Invalido'));
         }
 
         let user = await UserModel.create({ name, email: result.mail, role: result.role, password });
@@ -42,7 +42,7 @@ router.get('/registro', async function (req, res, next) {
         let decoded = await jwt.verify(token, 'invite');
         let result = await TokenModel.findById(decoded.sub);
         if (!result) {
-            return next(createError(401,'Token Invalido'));
+            return next(createError(401, 'Token Invalido'));
         }
         res.locals.mail = result.mail;
         res.locals.role = result.role;
@@ -59,7 +59,7 @@ router.post('/login', function (req, res, next) {
 
     passport.authenticate('login', { session: false }, (err, user, info) => {
         if (err | !user) { return next(createError(401, info)); }
-        
+
         req.login(user, { session: false }, (err) => {
             if (err) { return next(err) }
 
@@ -70,11 +70,9 @@ router.post('/login', function (req, res, next) {
             } else {
                 res.cookie('jwt', token);
             }
-            
-            return res.status(200).json({
-                user: user, token
-            })
-            //return res.redirect('/panel');
+
+            //return res.status(200).json({ user: user, token });
+            return res.redirect('/panel');
             //return res.status(200).json({message: 'Login Completado'})
         });
     })(req, res);

@@ -141,11 +141,11 @@ html(lang="es")
                   td#gRole admin
                   td#gAble Administrador.
                 tr
-                  td#gRole Rol 1
-                  td#gAble RRHH.
+                  td#gRole RRHH
+                  td#gAble Recursos Humanos (Agregar usuarios)
                 tr
-                  td#gRole Rol 2
-                  td#gAble Gestión.
+                  td#gRole Invitar Clientes
+                  td#gAble Enviar correo electronico de invitacion a cliente
         #IU.usersTabContent
           form(onsubmit='return validateInviteUser()', action='/api/mail/send', method='post')
             table.options
@@ -156,8 +156,9 @@ html(lang="es")
                   td.selectInput.right
                     select#iURole(name='iURole', required='')
                       option(value='0') Rol
-                      option(value='1') Rol 1
-                      option(value='2') Rol 2
+                      option(value='admin') Administrador
+                      option(value='rrhh') RRHH
+                      option(value='ic') Invitar Clientes
             button.green.end(type='submit') Invitar
           .currentText.inside  
           button#showInviteOptions.green(onclick='showInviteOptions()') Roles
@@ -169,11 +170,11 @@ html(lang="es")
                   th#gRole ROL
                   th#gAble Permisos
                 tr
-                  td#gRole Rol 1
-                  td#gAble RRHH
+                  td#gRole RRHH
+                  td#gAble Recursos Humanos (Agregar usuarios)
                 tr
-                  td#gRole Rol 2
-                  td#gAble Gestión
+                  td#gRole Invitar Clientes
+                  td#gAble Enviar correo electronico de invitacion a cliente
       #clients.mainTabContent
         table
           tbody
@@ -443,7 +444,7 @@ html(lang="es")
                     input.number.right(type='text', name='pNumber', placeholder='0000')
             button.green.end(type='submit') Agregar
         #IC.clientsTabContent
-          form
+          form(method='post', action='/api/mail/invite')
             table.options
               tbody
                 tr
