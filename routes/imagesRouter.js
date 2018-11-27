@@ -8,6 +8,16 @@ const passport = require('passport');
 const storage = multer.memoryStorage();
 const upload = multer(storage);
 
+router.get('/pictures/:magazine', async function (req, res, next) {
+    const magazine = req.params.magazine;
+    try {
+        let images = await ImageModel.find({ zone: magazine }, '_id');
+        return res.status(200).json(images);
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.post('/pictures', passport.authenticate('jwt', { session: false }), upload.any(), async function (req, res, next) {
     const zone = req.body.zone;
     const zoneName = req.body.sMagName;
@@ -35,7 +45,7 @@ router.get('/picture/:id', async function (req, res, next) {
     let id = req.params.id;
     try {
         let image = await ImageModel.findById(id);
-        res.contentType(image.img.contentType).send(image.img.data);
+        return res.contentType(image.img.contentType).send(image.img.data);
     } catch (err) {
         next(err);
     }

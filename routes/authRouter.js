@@ -58,7 +58,7 @@ router.post('/login', function (req, res, next) {
     const remember = req.body.remember;
 
     passport.authenticate('login', { session: false }, (err, user, info) => {
-        if (err | !user) { return next(createError(400, info)); }
+        if (err | !user) { return next(createError(401, info)); }
         
         req.login(user, { session: false }, (err) => {
             if (err) { return next(err) }
@@ -70,7 +70,12 @@ router.post('/login', function (req, res, next) {
             } else {
                 res.cookie('jwt', token);
             }
-            return res.redirect('/panel');
+            
+            return res.status(200).json({
+                user: user, token
+            })
+            //return res.redirect('/panel');
+            //return res.status(200).json({message: 'Login Completado'})
         });
     })(req, res);
 });

@@ -1,16 +1,26 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const Schema = mongoose.Schema;
 
-var infoSchema = new Schema({
-    strId: {
-        type: String,
-        required: true
+var logSchema = new Schema({
+    fecha: {
+        type: String
     },
-    img: {
-        data: Buffer, contentType: String
+    username: {
+        type: String
+    },
+    description: {
+        type: String
     }
 });
 
-const InfoModel = mongoose.model('infoImages', infoSchema);
 
-module.exports = InfoModel;
+logSchema.pre('save', async function (next) {
+    const item = this;
+    item.fecha = moment().format('DD/MM/YYYY');
+    next();
+})
+
+const LogModel = mongoose.model('log', infoSchema);
+
+module.exports = LogModel;

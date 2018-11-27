@@ -43,8 +43,24 @@ router.get('/info/picture/:id', async function (req, res, next) {
     }
 });
 
+router.get('/info/picturei/:id', async function (req, res, next) {
+    let id = req.params.id;
+    try {
+        let image = await InfoModel.findOne({ _id: id });
+        res.contentType(image.img.contentType).send(image.img.data);
+    } catch (err) {
+        next(err);
+    }
+});
 
-
+router.get('/info/pictures', async function (req, res, next) {
+    try {
+        let images = await InfoModel.find();
+        return res.status(200).json(images);
+    } catch (err) {
+        next(err);
+    }
+});
 
 
 

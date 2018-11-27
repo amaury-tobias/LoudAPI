@@ -9,7 +9,7 @@ var ContractSchema = new Schema({
         type: String
     },
     total: {
-        type: String
+        type: Number
     },
     espacio: {
         type: String
@@ -18,13 +18,13 @@ var ContractSchema = new Schema({
         type: String
     },
     telefonoNegocio: {
-        type: String
+        type: Number
     },
     cliente: {
         type: String
     },
     meses: {
-        type: String
+        type: Number
     },
     direccionNegocio: {
         type: String
@@ -34,6 +34,17 @@ var ContractSchema = new Schema({
     },
     mesInicio: {
         type: String
+    },
+    active: {
+        type: Boolean,
+        default: true
+    },
+    cobrado: {
+        type: Number
+    },
+    anticipo: {
+        type: Boolean,
+        default: false
     }
 });
 

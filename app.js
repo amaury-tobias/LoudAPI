@@ -6,6 +6,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cors = require('cors');
 require('./passport');
 
 const indexRouter = require('./routes/indexRouter');
@@ -26,10 +27,18 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors({
+  origin: ['http://localhost:8080', 'http://localhost:8080'],
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -37,6 +46,9 @@ app.use('/', indexRouter);
 app.use('/api', authRouter);
 app.use('/api', infoImageRouter);
 app.use('/api', imagesRouter);
+
+app.use('/test', contractRouter);
+
 
 app.use('/api', passport.authenticate('jwt', { session: false }), mailRouter);
 
@@ -47,11 +59,12 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (err, req, res, next) {
-  res.locals.message = err.message;  
+  res.locals.message = err.message;
   res.locals.status = err.status;
   res.locals.error = req.app.get('env') === 'development' ? err.stack : err.message;
 
   res.status(err.status || 500).render('error');
+  //res.status(err.status || 500).json(err);
 });
 
 module.exports = app;

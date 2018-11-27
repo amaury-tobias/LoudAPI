@@ -2,7 +2,7 @@ body
 {
     background-image: radial-gradient(circle, #42929d, #519fb1, #62acc5, #75b9d8, #8ac6eb);
     background-attachment: fixed;  
-    font-family:sans-serif;   
+    font-family:sans-serif;
     color: #2c1a6c;
     margin-left: 76px;
     margin-right: 76px;
@@ -15,7 +15,7 @@ header, section
 {    
     margin-left: auto;
     margin-right: auto;        
-    width: 100%;    
+    width: 100%;
     min-width: 640px;
     max-width: 1080px;
     background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.0));

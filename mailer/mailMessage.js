@@ -13,9 +13,9 @@ module.exports = function (from, to, subject) {
         html: htmlMailCompiled,
         attachments: [
             {
-                filename: 'abBBer.jpg',
-                path: `./mailer/aber.jpg`,
-                cid: 'oaber'
+                filename: 'logo.jpg',
+                path: `./mailer/logo.jpg`,
+                cid: 'head'
             }
         ]
     };
