@@ -3,26 +3,28 @@ html(lang="es")
   head
     meta(charset='UTF-8')
     title Guia del Lago - Administrar
-    link(rel='stylesheet', type='text/css', href='../Reset.css')
-    link(rel='stylesheet', type='text/css', href='../Main.css')
-    link(rel='stylesheet', type='text/css', href='../Admin.css')
-    script(src='jquery-3.3.1.js')
-    script(src='/Tabs.js')
-    script(src='/ToggleLoginForm.js')
-    script(src='/ToggleOptions.js')
-    script(src='/CustomSelect.js')
-    script(src='/AdminValidations.js')
-    script(src='/FileIndicator.js')
-    script(src='/ModalBox.js')
-    script(src='/SearchBar.js')
+    link(rel='stylesheet', type='text/css', href='/css/Reset.css')
+    link(rel='stylesheet', type='text/css', href='/css/Main.css')
+    link(rel='stylesheet', type='text/css', href='/css/Admin.css')
+    script(src='/js/jquery-3.3.1.js')
+    script(src='/js/Tabs.js')
+    script(src='/js/ToggleLoginForm.js')
+    script(src='/js/ToggleOptions.js')
+    script(src='/js/CustomSelect.js')
+    script(src='/js/AdminValidations.js')
+    script(src='/js/FileIndicator.js')
+    script(src='/js/ModalBox.js')
+    script(src='/js/SearchBar.js')
+    script(src='/js/back/onLoadPanel.js')
   body
     header
       img(src='/api/info/picture/banner', alt='Logo')
       button#showLogin.toggleFormShow(onclick='showForm()') Sesión
       #loginForm.toggleForm
-        form.toggleFormContainer(action='/api/close')
+        form.toggleFormContainer
           button.toggleFormHide(type='button', onclick='hideForm()') Ocultar
-          button.toggleFormCancel(type='submit') Cerrar
+          a(href='/') Inicio
+          a.toggleFormCancel(href='/api/close') Cerrar
     section
       table.mainTable
         tbody
@@ -66,13 +68,11 @@ html(lang="es")
                     tr
                       td.toggleInput.left
                         input#rDate(type='checkbox', name='rDate', checked='')
-                        label(for='rDate')
-                          | Mostrar fecha
+                        label(for='rDate') Mostrar fecha
                           span.checkmark
                       td.toggleInput.right
                         input#rUser(type='checkbox', name='rUser', checked='')
-                        label(for='rUser')
-                          | Mostrar usuario
+                        label(for='rUser') Mostrar usuario
                           span.checkmark
                 button.green.end(type='submit') Filtrar
             #recordDelete.recordTabContent
@@ -102,85 +102,50 @@ html(lang="es")
                 th#hAction Acción
               tr
                 td#hDate 31/12/2099 23:59
-                td#hUser Nombre1
-                td#hAction Cambios de cliente.
+                td#hUser= user.name
+                td#hAction Cambio 1.
               tr
                 td#hDate 31/12/2099 23:59
-                td#hUser Nombre2
-                td#hAction Cambios de cliente.
-              tr
-                td#hDate 31/12/2099 23:59
-                td#hUser Nombre3
-                td#hAction Cambios de cliente.
-              tr
-                td#hDate 31/12/2099 23:59
-                td#hUser Nombre4
-                td#hAction Cambios de cliente.
-              tr
-                td#hDate 31/12/2099 23:59
-                td#hUser Nombre5
-                td#hAction Cambios de cliente.
+                td#hUser Usuario
+                td#hAction Cambio 2.
         #G.usersTabContent
-          form
-            table.listInput
-              tbody
-                tr
-                  th#gUser Usuario
-                  th#gRole Rol
-                  th#gDelete Eliminar
-                tr
-                  td#gUser Nombre
-                  td#gRole Administrador
+          table.listInput
+            tbody
+              tr
+                th#gUser USUARIO
+                th#gRole ROL
+                th#gDelete ELIMINAR
+              each user, index in users
+                if (user.role == 'admin')
+                  tr
+                  td#gUser=user.name
+                  td#gRole= user.role
                   td#gDelete Permanente
-                tr
-                  td#gUser Nombre
-                  td.selectInput
-                    select(name='gUser1Role', required='')
-                      option(value='0') Rol
-                      option(value='1') Rol 1
-                      option(value='2') Rol 2
-                      option(value='3') Rol 3
-                  td#gDelete.toggleInput.red.right
-                    input#gUser1Delete(type='checkbox', name='gUser1Delete')
-                    label(for='gUser1Delete')
-                      | Eliminar
-                      span.checkmark
-                tr
-                  td#gUser Nombre
-                  td.selectInput
-                    select(name='gUser2Role', required='')
-                      option(value='0') Rol
-                      option(value='1') Rol 1
-                      option(value='2') Rol 2
-                      option(value='3') Rol 3
-                  td#gDelete.toggleInput.red.right
-                    input#gUser2Delete(type='checkbox', name='gUser2Delete')
-                    label(for='gUser2Delete')
-                      | Eliminar
-                      span.checkmark
-            button.green.end(type='submit') Modificar
+                else
+                  tr
+                    td#gUser=user.name
+                    td#gRole= user.role
+                    td#gDelete.toggleInput.red.right
+                      button#gUserDelete(onclick=`deleteUser('${user._id}')`) Eliminar
+
           .currentText.inside  
           button#showManageOptions.green(onclick='showManageOptions()') Roles
           #manageOptions.options
             button.black.ini(onclick='hideManageOptions()') Ocultar
-            .currentText.inside 4
             table.list
               tbody
                 tr
-                  th#gRole Rol
+                  th#gRole ROL
                   th#gAble Permisos
                 tr
-                  td#gRole Administrador
-                  td#gAble Todo.
+                  td#gRole admin
+                  td#gAble Administrador.
                 tr
                   td#gRole Rol 1
-                  td#gAble Menos que el administrador.
+                  td#gAble RRHH.
                 tr
                   td#gRole Rol 2
-                  td#gAble Menos que el administrador.
-                tr
-                  td#gRole Rol 3
-                  td#gAble Menos que el administrador.
+                  td#gAble Gestión.
         #IU.usersTabContent
           form(onsubmit='return validateInviteUser()', action='/api/mail/send', method='post')
             table.options
@@ -193,30 +158,22 @@ html(lang="es")
                       option(value='0') Rol
                       option(value='1') Rol 1
                       option(value='2') Rol 2
-                      option(value='3') Rol 3
             button.green.end(type='submit') Invitar
           .currentText.inside  
           button#showInviteOptions.green(onclick='showInviteOptions()') Roles
           #inviteOptions.options
             button.black.ini(onclick='hideInviteOptions()') Ocultar
-            .currentText.inside 4
             table.list
               tbody
                 tr
-                  th#gRole Rol
+                  th#gRole ROL
                   th#gAble Permisos
                 tr
-                  td#gRole Administrador
-                  td#gAble Todo.
-                tr
                   td#gRole Rol 1
-                  td#gAble Menos que el administrador.
+                  td#gAble RRHH
                 tr
                   td#gRole Rol 2
-                  td#gAble Menos que el administrador.
-                tr
-                  td#gRole Rol 3
-                  td#gAble Menos que el administrador.
+                  td#gAble Gestión
       #clients.mainTabContent
         table
           tbody
@@ -298,167 +255,91 @@ html(lang="es")
                           option(value='11') Noviembre
                           option(value='12') Diciembre
                 button.red.end(type='submit') Eliminar
-          .currentText Zona Mes
+          .currentText Buscar
           table.listInput
-            tbody
-              tr.noBorder
-                td.input(colspan='5')
-                  input#fBuisness.mid(type='text', placeholder='Buscar negocio')
-          form(method='post' action='/test')
+            tr.noBorder.noHover
+              td.input(colspan='5')
+                input#fBuisness.mid(type='text', placeholder='Buscar negocio')
+
             table.listInput
               tbody
                 tr
-                  th#cBuisness
-                    | Negocio
-                  th#cData
-                    | Detalles
-                  th#cPay
-                    | Cobrar
-                  th#cPaid
-                    | Cobrado
-                  th#cLeft
-                    | Faltante
+                  th#cBuisness Negocio
+                  th#cData Detalles
+                  th#cPay Cobrar
+                  th#cPaid Cobrado
+                  th#cLeft Faltante
+
                 tr
                   td#cBuisness
                     input(type='text', name='cId1', style='display: none;')
-                    .bName
-                      | Nombre Olov
+                    .bName Nombre Olov
                   td#cData.toggleInput
-                    input#cData1(type='checkbox', onclick="openModalBox('cData1', 'cData1Content')")
-                    label(for='cData1')
-                      | Ver
-                  td#cPay.input
-                    input#cPay1.number(type='text', name='cPay1', placeholder='00000')
-                  td#cPaid
-                    | 00000
-                  td#cLeft
-                    | 00000
+                    input#cData1.uncheck(type='checkbox', 
+                      onclick="openModalBox('cData1', 'cDataContent', true, 'popo', false, 'popo', 'popo', 'popo', 'popo', 'popo', 'popo', 'popo', 2)")
+                    label(for='cData1') Editar
+                  td#cPaid 00000
+                  td#cLeft 00000
+
                 tr.noBorder
                   td(style='padding: 0px;')
-                    #cData1Content.modal
-                      .modalContent
-                        table.listInput
-                          tbody
+                    #cDataContent.modal
+                      form
+                        .modalContent
+                          table.listInput
+                            input#ModalId(type='text', name='cId', style='display: none;')
                             tr
-                              td Vendedor
-                              td Usuario 1
-                            tr
-                              td#cBonus.toggleInput.red
-                                input#cBonus1Val0(type='radio', name='cBonus1', value='0', checked='')
-                                label(for='cBonus1Val0')
-                                  | Anticipo pendiente
+                              td#cCancel.toggleInput.left
+                                input#cCancelVal0(type='radio', name='cCancel', value='0')
+                                label(for='cCancelVal0') Contrato Activo
                                   span.radiomark
-                              td#cBonus.toggleInput.green
-                                input#cBonus1Val1(type='radio', name='cBonus1', value='1')
-                                label(for='cBonus1Val1')
-                                  | Anticipo pagado
+                              td#cCancel.toggleInput.red.right
+                                input#cCancelVal1(type='radio', name='cCancel', value='1')
+                                label(for='cCancelVal1') Contrato Cancelado
                                   span.radiomark
                             tr
-                              td Cliente
-                              td Nombre apellido
+                              td Vendedor :
+                              td#ModalUser Usuario 2
                             tr
-                              td Dirección
-                              td Dirección Dirección 1234
+                              td#cBonus.toggleInput.red.left
+                                input#cBonusVal0(type='radio', name='cBonus', value='0')
+                                label(for='cBonusVal0') Anticipo pendiente
+                                  span.radiomark
+                              td#cBonus.toggleInput.green.right
+                                input#cBonusVal1(type='radio', name='cBonus', value='1')
+                                label(for='cBonusVal1') Anticipo pagado
+                                  span.radiomark
+                            tr
+                              td Cliente :
+                              td#ModalClient Nombre2 apellido2
+                            tr
+                              td Dirección :
+                              td#ModalDir text
                             tr
                               td Teléfono
-                              td 00000000
+                              td#ModalTel 00000000
                             tr
                               td Folio
-                              td 00000
+                              td#ModalFile 00000
                             tr
                               td Meses
-                              td 3
+                              td#ModalMonths 1
                             tr
                               td Espacio
-                              td Cuarto de pagina
+                              td#ModalSpace Octavo de pagina
                             tr
                               td Precio Total
-                              td 000000
+                              td#ModalTotal 000000
                             tr
-                              td#cCancel.toggleInput
-                                input#cCancel1Val0(type='radio', name='cCancel1', value='0', checked='')
-                                label(for='cCancel1Val0')
-                                  | Contrato activo
-                                  span.radiomark
-                              td#cCancel.toggleInput.red
-                                input#cCancel1Val1(type='radio', name='cCancel1', value='1')
-                                label(for='cCancel1Val1')
-                                  | Contrato cancelado
-                                  span.radiomark
-                tr
-                  td#cBuisness
-                    input(type='text', name='cId2', style='display: none;')
-                    .bName
-                      | Nombre Olov 2
-                  td#cData.toggleInput
-                    input#cData2(type='checkbox', onclick="openModalBox('cData2', 'cData2Content')")
-                    label(for='cData2')
-                      | Ver
-                  td#cPay.input
-                    input#cPay2.number(type='text', name='cPay2', placeholder='00000')
-                  td#cPaid
-                    | 00000
-                  td#cLeft
-                    | 00000
-                tr.noBorder
-                  td(style='padding: 0px;')
-                    #cData2Content.modal
-                      .modalContent
-                        table.listInput
-                          tbody
-                            tr
-                              td Vendedor
-                              td Usuario 2
-                            tr
-                              td#cBonus.toggleInput.red
-                                input#cBonus2Val0(type='radio', name='cBonus2', value='0', checked='')
-                                label(for='cBonus2Val0')
-                                  | Anticipo pendiente
-                                  span.radiomark
-                              td#cBonus.toggleInput.green
-                                input#cBonus2Val1(type='radio', name='cBonus2', value='1')
-                                label(for='cBonus2Val1')
-                                  | Anticipo pagado
-                                  span.radiomark
-                            tr
-                              td Cliente
-                              td Nombre2 apellido2
-                            tr
-                              td Dirección
-                              td Dirección2 Dirección2 12342
-                            tr
-                              td Teléfono
-                              td 00000000
-                            tr
-                              td Folio
-                              td 00000
-                            tr
-                              td Meses
-                              td 1
-                            tr
-                              td Espacio
-                              td Octavo de pagina
-                            tr
-                              td Precio Total
-                              td 000000
-                            tr
-                              td#cCancel.toggleInput
-                                input#cCancel2Val0(type='radio', name='cCancel2', value='0', checked='')
-                                label(for='cCancel2Val0')
-                                  | Contrato activo
-                                  span.radiomark
-                              td#cCancel.toggleInput.red
-                                input#cCancel2Val1(type='radio', name='cCancel2', value='1')
-                                label(for='cCancel2Val1')
-                                  | Contrato cancelado
-                                  span.radiomark
-                tr
-                  td#cBuisness X negocios totales
-                  td#cData  
-                  td#cPay  
-                  td#cPaid 000000
-                  td#cLeft 000000
-            button.green.end(type='submit') Modificar
+                              td Cantidad a cobrar :
+                              td#cPay.input
+                                input#cPayn(type="text", name="cPay", placeholder="000.00")
+                            tr.noHover
+                              td.input
+                                button#cancelModal.red.end.left(type='button', onclick="closeModalBox('cDataContent')") Cancelar
+                              td.input
+                                button.green.end.right(type='submit') Modificar
+                              
         #AG.clientsTabContent
           form(onsubmit='return validateAddClient()')
             table.listInput

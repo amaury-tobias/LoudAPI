@@ -1,0 +1,407 @@
+body
+{
+    background-image: radial-gradient(circle, #42929d, #519fb1, #62acc5, #75b9d8, #8ac6eb);
+    background-attachment: fixed;  
+    font-family:sans-serif;   
+    color: #2c1a6c;
+    margin-left: 76px;
+    margin-right: 76px;
+    font-size: 20px;
+}
+
+
+
+header, section
+{    
+    margin-left: auto;
+    margin-right: auto;        
+    width: 100%;    
+    min-width: 640px;
+    max-width: 1080px;
+    background-image: linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.0));
+    text-align: center;
+    border-radius: 30px;
+}
+header
+{
+    margin-top: 76px;
+    margin-bottom: 30px;
+    position: relative;
+}
+header img
+{
+    vertical-align: middle;
+    border-radius: 30px;
+}
+section
+{
+    margin-bottom: 76px;
+    margin-top: 30px;
+}
+
+
+
+table
+{            
+    border-collapse: separate;
+    width: 100%;  
+    table-layout: fixed;      
+}
+.mainTable
+{
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.5);
+    border-radius: 30px 30px 0px 0px;
+}
+td
+{
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 25px;
+    transition: 0.3s;   
+}
+.mainTab
+{
+    font-size: 35px;    
+    border-bottom: solid 3px;    
+}
+.mainTab.ini
+{
+    border-radius: 30px 0px 0px 0px;
+    border-top: solid 3px;
+    border-left: solid 3px;    
+}
+.mainTab.mid
+{
+    border-radius: 0px;
+    border-top: solid 3px;    
+}
+.mainTab.end
+{
+    border-radius: 0px 30px 0px 0px;
+    border-top: solid 3px;
+    border-right: solid 3px;
+}
+td:hover
+{
+    background-color: rgba(255,255,255,1);
+    cursor: pointer;    
+}
+td.active
+{
+    color: rgba(255,255,255,1);
+    background-color:  #8daa79; 
+}
+.tab.ini
+{
+    border-radius: 0px 0px 0px 30px;
+    border-bottom: solid 3px;
+    border-left: solid 3px;
+}
+.tab.mid
+{
+    border-radius: 0px;
+    border-bottom: solid 3px;    
+}
+.tab.end
+{
+    border-radius: 0px 0px 30px 0px;
+    border-bottom: solid 3px;
+    border-right: solid 3px;
+}
+.mainTabContent, .magTabContent, .infoTabContent, .usersTabContent, .recordTabContent, .clientsTabContent, .contractsTabContent, .siteTabContent
+{    
+    display: none;
+    animation: fadeFx 1s; /* Fading effect takes 1 second */
+}
+@keyframes fadeFx
+{
+    from {opacity: 0;}
+    to {opacity: 1;}
+} 
+
+
+
+.slidesContainer
+{
+    position: relative;       
+}
+.slide1, .slide2, .slide3
+{
+    display: none;    
+    animation: fadeFx 1s; /* Fading effect takes 1 second */
+}
+.numbertext 
+{    
+    font-size: 25px;
+    padding: 5px;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    right: 0;
+    height: 40px;
+}
+.slide1 img, .slide2 img, .slide3 img
+{
+    width: 100%;
+    vertical-align: middle;
+}
+.prev1, .prev2, .prev3, .next1, .next2, .next3 
+{
+    cursor: pointer;
+    position: absolute;
+    padding: 20px 30px; 
+    font-weight: bold;
+    user-select: none;   
+    background-color: rgba(255, 255, 255, 1);
+    font-size: 30px;
+    top: 31%;
+    transition: 0.3s;
+    border-radius: 30px;
+    border: solid 3px;
+}    
+.prev1, .prev2, .prev3
+{
+    left:-76px;
+}
+.next1, .next2, .next3 
+{
+    right: -76px;
+}
+.prev1:hover, .prev2:hover, .prev3:hover, .next1:hover, .next2:hover, .next3:hover 
+{
+    color: rgba(255, 255, 255, 1);
+    background-color: #8daa79;
+}
+.gallery1, .gallery2, .gallery3
+{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.thumbnailContainer
+{
+    display: inline-table;    
+    border-collapse: collapse;
+    margin: 0px;
+    padding: 0px;
+}
+.thumbnail1, .thumbnail2, .thumbnail3
+{
+    cursor: pointer;
+    opacity: 0.3;
+    vertical-align: middle;
+    display: inline-block;
+    width: 150px; 
+    padding: 10px;
+    transition: 0.3s;
+}
+.thumbnail1:hover, .thumbnail2:hover, .thumbnail3:hover
+{
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 1);
+}
+img.thumbnail1.active, img.thumbnail2.active, img.thumbnail3.active
+{
+    opacity: 1;
+    background-color: #8daa79;
+}
+
+
+
+.magTabContent, .infoTabContent, .usersTabContent, .clientsTabContent, .siteTabContent
+{
+    margin-top: 40px;
+}
+
+
+
+.toggleFormShow 
+{
+    background-color: rgba(255, 255, 255, 1);
+    padding: 15px;
+    font-size: 20px;
+    color: #2c1a6c;
+    text-align: center;
+    position: absolute;
+    top: -59px;
+    right: 0px;
+    width: 300px;
+    border: solid 3px;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+.toggleFormShow:hover
+{
+    color: rgba(255, 255, 255, 1);
+    background-color: #8daa79;
+}
+.toggleFormShow:focus
+{
+    outline: none;
+}
+.toggleFormShow.close
+{
+    text-decoration: none;
+}
+.toggleFormShow.close:hover
+{
+    background-color: #d42b2b;
+}
+.toggleForm
+{
+    display: none;
+    position: absolute;
+    top: -59px;
+    right: 0px;
+    z-index: 10;    
+    border-radius: 30px;
+}
+.toggleFormContainer
+{
+    width: 300px;    
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: 0px 10px 30px 5px rgba(0,0,0,0.5);
+    border-radius: 30px;    
+}
+.toggleFormContainer input[type=text], .toggleFormContainer input[type=password], .toggleFormContainer button, .toggleFormContainer a
+{
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;    
+    color: #2c1a6c;
+    transition: 0.3s;    
+}
+.toggleFormContainer input[type=text], .toggleFormContainer input[type=password], .toggleFormContainer .toggleInput label, .toggleFormContainer a
+{
+    border-left: solid 3px;
+    border-right: solid 3px;
+    border-bottom: none;
+    border-top: none;
+}
+.toggleFormContainer input[type=text]:focus, .toggleFormContainer input[type=password]:focus
+{
+    background-color: #8daa79;
+    color: rgba(255, 255, 255, 1);
+}
+.toggleFormContainer input[type=text]:focus, .toggleFormContainer input[type=password]:focus, .toggleFormHide:focus, .toggleFormSubmit:focus, .toggleFormCancel:focus
+{    
+    outline: none;
+}
+.toggleFormContainer a
+{
+    display: block;
+    background-color: white;
+    text-decoration: none;    
+}
+.toggleFormContainer a:hover
+{
+    color: white;
+    background-color: #8daa79;
+}
+a.toggleFormCancel
+{
+    border-bottom: 3px solid;  
+}
+a.toggleFormCancel:hover
+{
+    color: white;
+    background-color: #d42b2b;
+}
+.toggleFormHide
+{
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 30px 30px 0px 0px;  
+    border-top: solid 3px;
+    border-left: solid 3px;
+    border-right: solid 3px;
+    border-bottom: none;
+}
+.toggleFormHide:hover
+{
+    background-color: rgba(0, 0, 0, 1);
+    color:white;
+}
+.toggleFormSubmit, .toggleFormCancel
+{
+    background-color: rgba(255, 255, 255, 1); 
+    border-radius: 0px 0px 30px 30px;
+    border-bottom: solid 3px;
+    border-left: solid 3px;
+    border-right: solid 3px;
+    border-top: none;
+}
+.toggleFormSubmit:hover
+{
+    background-color: #8daa79;
+    color: white;
+}
+.toggleFormCancel:hover
+{
+    background-color: #d42b2b;
+    color: white;
+}
+.toggleInput input
+{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0px;
+    width: 0px;
+}
+.toggleInput label
+{
+    display: block;
+    position: relative;
+    padding: 15px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 20px;
+    transition: 0.3s;    
+}
+.checkmark 
+{
+    position: absolute;
+    top: 13px;    
+    left: 13px;
+    height: 25px;
+    width: 25px;
+    background-color: #2c1a6c;
+    transition: 0.3s;
+}
+.toggleInput input:checked ~ label .checkmark 
+{
+    background-color: white;
+}
+.checkmark:after 
+{
+    content: "";
+    position: absolute;
+    display: none;    
+}
+.toggleInput input:checked ~ label .checkmark:after 
+{
+    display: block;
+}
+.toggleInput label .checkmark:after 
+{
+    left: 8px;
+    top: 1px;
+    width: 10px;
+    height: 20px;
+    border: solid #8daa79;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.toggleInput input:checked + label
+{
+    color: rgba(255, 255, 255, 1);    
+    background-color: #8daa79;
+}
+.toggleInput
+{
+    background-color: rgba(255, 255, 255, 1);
+}

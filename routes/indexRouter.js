@@ -43,6 +43,7 @@ router.get('/panel', passport.authenticate('jwt', { session: false }), async fun
   if (!req.user)
     return next(createError(401, 'No auth token'));
   try {
+    res.locals.user = req.user;
     res.locals.users = await UserModel.find().sort();
     return res.render('panel');
   } catch (error) {

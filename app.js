@@ -15,6 +15,7 @@ const authRouter = require('./routes/authRouter');
 const mailRouter = require('./routes/mailRouter');
 const contractRouter = require('./routes/contractRouter');
 const infoImageRouter = require('./routes/infoImageRouter');
+const usersRouter = require('./routes/usersRouter');
 
 var dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/loud';
 
@@ -29,7 +30,7 @@ app.set('view engine', 'pug');
 
 app.use(cors({
   origin: ['http://localhost:8080', 'http://localhost:8080'],
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
 
@@ -49,6 +50,7 @@ app.use('/api', imagesRouter);
 
 app.use('/test', contractRouter);
 
+app.use('/api', passport.authenticate('jwt', { session: false }), usersRouter);
 
 app.use('/api', passport.authenticate('jwt', { session: false }), mailRouter);
 

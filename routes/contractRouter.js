@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ContractModel = require('../models/contractModel');
 
+
 router.get('/contratos', function (req, res) {
     ContractModel.find({})
         .then(rs => {

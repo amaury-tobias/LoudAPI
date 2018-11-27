@@ -4,30 +4,38 @@ html(lang="es")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    script(src="/jquery-3.3.1.js")
-    script(src="/Tabs.js")
-    script(src="/Slideshow.js")
-    script(src="/ToggleLoginForm.js")
-    link(rel="stylesheet", href="/Reset.css")
-    link(rel="stylesheet", href="/Main.css")
+    script(src="/js/jquery-3.3.1.js")
+    script(src="/js/Tabs.js")
+    script(src="/js/Slideshow.js")
+    script(src="/js/ToggleLoginForm.js")
+    link(rel="stylesheet", href="/css/Reset.css")
+    link(rel="stylesheet", href="/css/Main.css")
     title Guia del Lago
   body
     header
       img(src="/api/info/picture/banner", alt="BANNER")
+      button#showLogin.toggleFormShow(onclick="showForm()") Sesión
+      
       if (!user)
-        button#showLogin.toggleFormShow(onclick="showForm()") Sesión
+        #loginForm.toggleForm
+          form.toggleFormContainer(action="/api/login", method="post")
+            button.toggleFormHide(onclick="hideForm()", type="button") Ocultar
+            input(type="text", name="email" placeholder="Correo Electronico" required)
+            input(type="password", name="password" placeholder="Contraseña" required)
+            .toggleInput
+              input#remember(type="checkbox", name="remember")
+              label(for="remember") Recordarme
+                span.checkmark
+            button.toggleFormSubmit(type="submit") Iniciar
       else
-        a#showLogin.toggleFormShow(href="/api/close") Cerrar Sesión
-      #loginForm.toggleForm
-        form.toggleFormContainer(action="/api/login", method="post")
-          button.toggleFormHide(onclick="hideForm()", type="button") Ocultar
-          input(type="text", name="email" placeholder="Correo Electronico" required)
-          input(type="password", name="password" placeholder="Contraseña" required)
-          .toggleInput
-            input#remember(type="checkbox", name="remember")
-            label(for="remember") Recordarme
-              span.checkmark
-          button.toggleFormSubmit(type="submit") Iniciar
+        #loginForm.toggleForm
+          form.toggleFormContainer
+            button.toggleFormHide(onclick="hideForm()", type="button") Ocultar
+            a(href="/panel") Panel de administración
+            a.toggleFormCancel(href="/api/close") Cerrar Sesión
+
+
+
 
     section
       table.mainTable

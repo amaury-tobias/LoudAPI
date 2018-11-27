@@ -1,0 +1,499 @@
+.recordTabContent
+{
+    margin-bottom: 40px;
+}
+.subTab
+{    
+    font-size: 20px;
+    padding: 15px;        
+    border-top: solid 3px;
+    border-bottom: solid 3px;
+}
+.subTab.ini
+{
+    border-left: solid 3px;
+}
+.subTab.end
+{
+    border-right: solid 3px;
+}
+.subTab.active.red
+{
+    background-color: #d42b2b;
+}
+
+
+
+div.options
+{
+   display: none;
+}
+table.options th
+{
+    padding: 15px;
+    font-weight: normal;    
+}
+table.options td
+{
+    padding: 0px;      
+}
+
+
+
+.toggleInput.left label
+{
+    border-left: solid 3px;
+}
+.toggleInput.right label
+{
+    border-right: solid 3px;
+}
+.toggleInput.red label .checkmark:after 
+{
+    border: solid #d42b2b;
+    border-width: 0 3px 3px 0;
+}
+
+
+
+.selectInput 
+{
+    position: relative;     
+    height: 53px;
+}
+.selectInput select 
+{
+    display: none; 
+}
+.selectInputSelected
+{
+    color: rgba(255, 255, 255, 1);   
+    background-color: #8daa79;     
+    height: 100%;    
+}
+.selectInput.red .selectInputSelected
+{
+    background-color: #d42b2b;
+}
+.selectInput.left .selectInputSelected
+{
+    border-left: solid 3px;
+}
+.selectInput.right .selectInputSelected
+{
+    border-right: solid 3px;
+}
+.selectInputSelected:after 
+{
+    position: absolute;
+    content: "";
+    top: 20px;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+.selectInputSelected.dropArrow:after 
+{
+    border-color: transparent transparent #fff transparent;
+    top: 10px;
+}
+.selectInputSelected, .selectInputList div
+{      
+    padding: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.3s;
+}
+.selectInputList div:last-child
+{
+    border-radius: 0px 0px 30px 30px;
+    border-bottom: solid 3px;
+}
+.selectInputList div
+{
+    border-right: solid 3px;
+    border-left: solid 3px;
+}
+.selectInputList 
+{
+    position: absolute;
+    background-color: rgba(255, 255, 255, 1); 
+    box-shadow: 0px 10px 30px 5px rgba(0,0,0,0.5);
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    animation: fadeFx 0.3s;
+    border-radius: 0px 0px 30px 30px;    
+}
+.selectInputList div:hover
+{
+    color: rgba(255, 255, 255, 1); 
+    background-color: #8daa79;
+}
+.selectInput.red .selectInputList div:hover
+{
+    background-color: #d42b2b;
+}
+.selectInputHide
+{
+    display: none;
+}
+
+
+
+section button
+{
+    background-color: rgba(255, 255, 255, 1);
+    padding: 15px;
+    font-size: 20px;
+    color: #2c1a6c;
+    width: 100%;
+    transition: 0.3s;    
+    border-radius: 30px;
+    border: solid 3px;
+}
+section button.ini
+{
+    border-radius: 30px 30px 0px 0px;
+    border-bottom: none;
+}
+section button.end
+{
+    border-radius: 0px 0px 30px 30px;
+    border-top: none;
+}
+section button.end.left
+{
+    border-bottom-right-radius: 0px;
+    border-right: none;
+}
+section button.end.right
+{
+    border-bottom-left-radius: 0px;
+    border-left: none;
+}
+section button:focus
+{
+    outline: none;
+}
+section button.white:hover
+{
+    background-color: rgba(255, 255, 255, 1);  
+}
+section button.black:hover
+{
+    background-color: rgba(0, 0, 0, 1);  
+    color: white;
+}
+section button.green:hover
+{
+    background-color: #8daa79;
+    color: white;
+}
+section button.red:hover
+{
+    background-color: #d42b2b;
+    color: white;
+}
+
+button.modalb
+{
+    border: 3px solid;
+    border-radius: 30px; 
+    border-top: none;
+}
+
+
+td input[type=email], td input[type=text]
+{
+    width: 100%;    
+    padding: 15px;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    background-color: rgba(255, 255, 255, 1.0);    
+    transition: 0.3s;
+}
+td input[type=email]:focus, td input[type=text]:focus
+{
+    color: rgba(255, 255, 255, 1.0);
+    background-color: #8daa79;
+}
+td input[type=text].mid
+{
+    border-left: 3px solid;
+    border-right: 3px solid;
+}
+td input[type=text].right
+{
+    border-right: 3px solid;
+    border-left: none;
+}
+td input[type=email].left
+{
+    border-left: 3px solid;
+}
+td input[type=email].mid
+{
+    border-left: 3px solid;
+    border-right: 3px solid;
+}
+td input[type=email]:focus, td input[type=text]:focus
+{   
+    outline: none;
+}
+#fBuisness
+{
+    border: 3px solid;
+    border-radius: 30px;
+    color: #2c1a6c;
+}
+
+
+
+.toggleInput.red input:checked + label
+{
+    background-color: #d42b2b;
+    color: white;
+}
+.toggleInput.green input:checked + label
+{
+    background-color: #8daa79;
+    color: white;
+}
+.radiomark 
+{
+    position: absolute;
+    top: 13px;    
+    left: 13px;
+    height: 25px;
+    width: 25px;
+    background-color: #2c1a6c;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+.toggleInput input:checked ~ label .radiomark 
+{
+    background-color: white;
+}
+.radiomark:after 
+{
+    content: "";
+    position: absolute;
+    display: none;    
+}
+.toggleInput input:checked ~ label .radiomark:after 
+{
+    display: block;
+}
+.toggleInput label .radiomark:after 
+{
+ 	top: 5px;
+	left: 5px;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+    background-color: #8daa79;
+}
+.toggleInput.red label .radiomark:after 
+{
+    background-color: #d42b2b;
+}
+.toggleInput.Modal
+{
+    background-color: transparent;
+}
+.toggleInput.Modal label
+{
+    background-color: white;
+    border: solid 3px;
+    border-radius: 30px;
+}
+
+
+
+.fileInput
+{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.fileInput + label 
+{        
+    background-color: #8daa79;
+    color: white;    
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-left: 3px solid;
+    border-right: 3px solid;
+}
+.fileInput + label:hover 
+{
+    cursor: pointer;
+}
+
+
+
+.input textarea
+{
+    display: block;
+    font-size: 20px;    
+    width: 100%;
+    height: 106px;
+    outline: none;
+    border-left: 3px solid;
+    border-right: 3px solid;
+    border-top: none;
+    border-bottom: none;
+    padding: 15px;
+    resize: none;
+}
+.input textarea:focus
+{
+    background-color: #8daa79;
+    color: white;
+}
+
+
+
+.currentText
+{    
+    font-size: 20px;
+    padding: 0px 15px 20px 15px;
+    height: 40px;
+    margin-top: 40px;
+}
+.currentText.inside
+{    
+    padding: 10px 15px 10px 15px;
+    margin-top: 0px;
+}
+.list tr, .listInput tr:not(.noBorder)
+{
+    border-bottom: 3px solid rgba(255,255,255,0.5);
+    transition: 0.3s;
+}
+.list tr:hover, .listInput tr:hover:not(.noHover)
+{
+    background-color: rgba(255,255,255,0.5);
+}
+.list th, .list td, .listInput th, .listInput td
+{
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    transition: 0.3s;   
+    font-weight: normal;
+    word-wrap: break-word;    
+}
+.list td:hover, .listInput td:hover:not(.toggleInput)
+{
+    background-color: rgba(255,255,255,0);
+    cursor: default;    
+}
+.listInput td.selectInput, .listInput td.toggleInput, .listInput td.input
+{
+    padding: 0px;
+}
+#hDate, #gRole
+{
+    width: 200px;    
+}
+#hUser
+{
+    width: 150px;
+}
+#cPaid, #cLeft, #cData, #cPay
+{
+    width: 110px;    
+}
+#hAction, #gAble, #cBuisness, #cSeller
+{
+    width: 100%;
+}
+
+
+
+.modal 
+{
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;       
+    width: 100%;    
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    padding-left: 76px;
+    padding-right: 76px;
+    align-items: center;
+    animation: fadeFx 0.3s;
+}
+.modalContent
+{    
+    margin-left: auto;
+    margin-right: auto;                  
+    min-width: 640px;
+    max-width: 1080px;  
+    background-color: rgba(204, 204, 204, 1);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+
+
+.tooltip 
+{
+    position: relative;
+    display: inline-block;    
+}
+.tooltip .tooltiptext 
+{
+    background-color: dimgray;
+    width: 400px;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -200px;
+}
+.tooltip .tooltiptext::after 
+{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: dimgray transparent transparent transparent;
+}
+.tooltip.used
+{
+    display: none;
+}
+
+#gUserDelete {
+    border: solid #d42b2b;
+    border-width: 2px 2px;
+    border-radius: 0;
+}
+
+#gUserDelete:hover {
+    background: #d42b2b;
+}
