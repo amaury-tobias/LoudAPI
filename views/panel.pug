@@ -36,7 +36,9 @@ html(lang="es")
             if (user.role == 'rrhh')
               td.mainTab.end(onclick="mainTab(event, 'clients')") Clientes
 
-            if (user.role == 'admin' || user.role == 'ic')
+            if (user.role == 'admin')
+              td.mainTab.end(onclick="mainTab(event, 'site')") Sitio
+            if (user.role == 'ic')
               td.mainTab.mid(onclick="mainTab(event, 'site')") Sitio
       #users.mainTabContent
         table.subTable
@@ -106,14 +108,12 @@ html(lang="es")
                 th#hDate Fecha
                 th#hUser Usuario
                 th#hAction Acción
-              tr
-                td#hDate 31/12/2099 23:59
-                td#hUser= user.name
-                td#hAction Cambio 1.
-              tr
-                td#hDate 31/12/2099 23:59
-                td#hUser Usuario
-                td#hAction Cambio 2.
+              each log, index in logs
+                tr
+                  td#hDate= log.fecha
+                  td#hUser= log.username
+                  td#hAction= log.description
+
         #G.usersTabContent
           table.listInput
             tbody
@@ -303,7 +303,6 @@ html(lang="es")
                   td(style='padding: 0px;')
                     #cDataContent.modal
                       form(method='post', action='/api/contrato/update')
-                        input(type="hidden" name="_METHOD" value="PUT")
                         .modalContent
                           table.listInput
                             input#ModalId(type='text', name='cId', style='display: none;')

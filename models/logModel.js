@@ -17,10 +17,10 @@ var logSchema = new Schema({
 
 logSchema.pre('save', async function (next) {
     const item = this;
-    item.fecha = moment().format('DD/MM/YYYY');
+    item.fecha = moment().format('lll');
     next();
 })
 
-const LogModel = mongoose.model('log', infoSchema);
+const LogModel = mongoose.model('log', logSchema);
 
 module.exports = LogModel;

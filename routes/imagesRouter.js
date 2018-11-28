@@ -4,6 +4,7 @@ const fs = require('fs');
 const multer = require('multer');
 const ImageModel = require('../models/imageModel');
 const passport = require('passport');
+const LogModel = require('../models/logModel');
 
 const storage = multer.memoryStorage();
 const upload = multer(storage);
@@ -34,7 +35,8 @@ router.post('/pictures', passport.authenticate('jwt', { session: false }), uploa
                 newPic.save();
                 page ++;
             });
-            res.status(200).render('panel');
+            LogModel.create({ username: req.user.name, description: 'Imagenes Actualizadas' });
+            res.status(200).redirect('/panel');
         }
     } catch (error) {
         next(error);

@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 const InfoModel = require('../models/infoModel')
 const multer = require('multer');
+const LogModel = require('../models/logModel');
 
 const passport = require('passport');
 
@@ -25,6 +26,7 @@ router.post('/info/picture',
                 newPic.img.data = fs.readFileSync(req.file.path);
                 newPic.strId = strId;
                 newPic.save();
+                LogModel.create({ username: req.user.name, description: 'Imagenes Info Actualizadas' });
                 return res.status(200).redirect('/panel');
             })
             .catch(err => {

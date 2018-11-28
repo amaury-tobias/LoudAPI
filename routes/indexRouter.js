@@ -3,6 +3,8 @@ const createError = require('http-errors');
 const ImageModel = require('../models/imageModel');
 const UserModel = require('../models/usermodel');
 const ContractModel = require('../models/contractModel');
+const LogModel = require('../models/logModel');
+
 
 const passport = require('passport');
 
@@ -45,6 +47,7 @@ router.get('/panel', passport.authenticate('jwt', { session: false }), async fun
   if (!req.user)
     return next(createError(401, 'No auth token'));
   try {
+    res.locals.logs = await LogModel.find().sort({ fecha: 1 });
     res.locals.user = req.user;
     res.locals.users = await UserModel.find().sort();
     res.locals.contratos = await ContractModel.find().sort();

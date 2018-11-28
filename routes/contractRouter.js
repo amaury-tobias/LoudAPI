@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ContractModel = require('../models/contractModel');
-
+const LogModel = require('../models/logModel');
 
 router.get('/contratos', function (req, res, next) {
     ContractModel.find({})
@@ -30,6 +30,7 @@ router.post('/contrato', function (req, res, next) {
 
     ContractModel.create(newContract)
         .then(contract => {
+            LogModel.create({ username: req.user.name, description: `Contrato ${contract.nombreNegocio}` });
             return res.status(200).redirect('/panel');
         })
         .catch(err => {
@@ -46,6 +47,7 @@ router.post('/contrato/update', async function (req, res, next) {
         let oldContract = await ContractModel.findById(id);
         cobrar += oldContract.cobrado;
         let updatedContract = await ContractModel.findByIdAndUpdate(id, { active: status, anticipo: anticipo, cobrado: cobrar });
+        LogModel.create({ username: req.user.name, description: `Contrato ${updatedContract.nombreNegocio} actualizado` });
         return res.status(200).redirect('/panel');
     } catch (error) {
         next();
