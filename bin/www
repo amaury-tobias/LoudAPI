@@ -7,7 +7,9 @@
 var app = require('../app');
 var debug = require('debug')('loudapi:server');
 var http = require('http');
-
+// .env file 
+require('dotenv').config();
+//const d
 /**
  * Get port from environment and store in Express.
  */

@@ -19,9 +19,9 @@ const usersRouter = require('./routes/usersRouter');
 
 var dbURL = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/loud';
 
-mongoose.connect(dbURL, { useNewUrlParser: true });
-mongoose.set('useCreateIndex', true);
-mongoose.connection.on('error', error => console.log(error));
+//mongoose.connect(dbURL, { useNewUrlParser: true });
+//mongoose.set('useCreateIndex', true);
+//mongoose.connection.on('error', error => console.log(error));
 
 var app = express();
 
